@@ -33,4 +33,4 @@ jobs:
 
       # Docker Build
       - name: Build Docker Containers
-        run: docker-compose -f ./docker-compose.yml build
+        run: docker compose -f ./docker-compose.yml build
