@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  # Backend service (Laravel)
+  backend:
+    build: ./backend
+    ports:
+      - "8080:80"
+    container_name: cartwave-backend
+    volumes:
+      - ./backend:/var/www/html
+
+  # Frontend service (React + Vite)
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    container_name: cartwave-frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  # Database service (MySQL)
+  database:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: cartwave_db
+      MYSQL_USER: cartwave
+      MYSQL_PASSWORD: password
+    container_name: cartwave-database
+
+  # phpMyAdmin service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: root
+    container_name: cartwave-phpmyadmin
+    depends_on:
+      - database
