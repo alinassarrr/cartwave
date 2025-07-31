@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main, dev]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Setup PHP for Backend
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      
+      # Install Composer dependencies
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+     # Docker Build
+      - name: Build Docker Containers
+        run: docker-compose -f ./docker-compose.yml build
+
