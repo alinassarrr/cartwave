@@ -6,15 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
 
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->decimal('price', 10, 2);
-            $table->integer('stock')->default(0);
-            $table->string('image_path')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->decimal('total', 10, 2);
+            $table->decimal('shipping_price', 10, 2)->default(0.00);
+            $table->enum('status', ['pending', 'paid', 'packed', 'shipped'])->default('pending');
             $table->timestamps();
         });
     }
