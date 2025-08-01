@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 const InputField = (props) => {
-  const { title, id, name, placeholder, className, onChange, value, required= true } = props;
+  const { title, id, name, type="text", placeholder, className, onChange, value, required= true } = props;
 
   return (
     <div className={className}>

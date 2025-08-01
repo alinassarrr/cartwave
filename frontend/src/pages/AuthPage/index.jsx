@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import LogIn from "../../components/LoginPage";
 import Register from "../../components/RegisterPage";
 import './styles.css';
+import { useUser } from "../../contexts/UserContext/index.jsx";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -10,10 +13,40 @@ const AuthPage = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const { setUser } = useUser();
+    const navigate = useNavigate();
+
     const handleLoginSubmit = () => {
-        console.log('Login data', {email, password});
-        //Axios 
-    };
+        const mockUser = {
+            name: "salem", 
+            role:"admin",
+        };
+        setUser(mockUser);
+        localStorage.setItem("user", JSON.stringify(mockUser));
+        navigate("/home");
+    }
+
+    // const handleLoginSubmit = async () => {
+    //     try {
+    //         const response = await axios.post("http://localhost:8080/api/login", {
+    //             email, password,
+    //         });
+    //         const user = response.data;
+
+    //         setUser(user);
+    //         localStorage.setItem("user", JSON.stringify(user));
+
+    //         if(user.role === "admin") {
+    //             navigate("/admin/dashboard");
+    //         } else {
+    //             navigate("home");
+    //         }
+    //     } catch (error){
+    //         console.error("Login failed", error.response?.data || error.message);
+            
+    //     }
+    // };
+
 
     const handleRegisterSubmit = () => {
         console.log('register data', {name, email, password, confirmPassword});
