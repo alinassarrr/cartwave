@@ -52,3 +52,8 @@
 .nav-right span {
   cursor: pointer;
 }
+
+.nav-icons {
+  display: flex;
+  gap: 1rem;
+}

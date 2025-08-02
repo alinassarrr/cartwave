@@ -1,11 +1,14 @@
 import { useUser } from "../../contexts/UserContext/index.jsx";
+import { useCart } from "../../contexts/CartContext";
 import InputField from "../InputField";
 import { Link } from "react-router-dom";
+import { BsBellFill, BsCartFill, BsPersonCircle } from "react-icons/bs";
 import "./styles.css";
+import NavIcon from "../NavIcon/index.jsx";
 
 const Navbar = () => {
   const { user } = useUser();
-
+  const { getCartCount } = useCart();
   return (
     <nav className="navbar container">
       <div className="logo">CartWave</div>
@@ -50,9 +53,23 @@ const Navbar = () => {
         ) : (
           <>
             <InputField type="text" placeholder="Search Product..." />
-            <span>Cart</span>
-            <span>Notification</span>
-            <span>Profile</span>
+            <ul className="nav-icons">
+              <li>
+                <Link to="/cart">
+                  <NavIcon Icon={BsCartFill} count={getCartCount()} />
+                </Link>
+              </li>
+              <li>
+                <Link to="/notifications">
+                  <NavIcon Icon={BsBellFill} count={0} />
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile">
+                  <BsPersonCircle size={18} />
+                </Link>
+              </li>
+            </ul>
           </>
         )}
       </div>
