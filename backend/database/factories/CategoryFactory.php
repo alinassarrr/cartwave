@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,9 +16,9 @@ class CategoryFactory extends Factory {
         $name = $this->faker->unique()->word();
 
         return [
-            'name' => ucfirst($name),
-            'slug' => Str::slug($name),
+            'name' => ucfirst($this->faker->unique()->word()),
             'description' => $this->faker->sentence(),
+            'image_url' => $this->faker->imageUrl(),
             'is_active' => true,
         ];
     }
