@@ -1,0 +1,33 @@
+.admin-sidebar {
+  width: 220px;
+  background-color: #a7a4a4;
+  padding: 20px 0;
+  border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #222;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.sidebar-menu li a:hover {
+  color: #00cccc;
+}
