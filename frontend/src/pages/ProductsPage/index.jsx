@@ -6,9 +6,7 @@ import Filter from "../../components/Filter";
 const ProductsPage = () => {
   return (
     <div className="container products">
-      <section className="filter">
-        <Filter />
-      </section>
+      <Filter />
       <section className="items-list">
         <ItemCard img={"public/img/itemcard/items.png"} />
         <ItemCard img={"public/img/itemcard/items2.png"} />
@@ -19,9 +17,7 @@ const ProductsPage = () => {
         <ItemCard img={"public/img/itemcard/items2.png"} />
         <ItemCard img={"public/img/itemcard/items2.png"} />
       </section>
-      <div className="pagination">
-        <Pagination />
-      </div>
+      <Pagination />
     </div>
   );
 };

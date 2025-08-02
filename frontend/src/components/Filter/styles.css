@@ -6,8 +6,8 @@
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  font-family: sans-serif;
   width: 100%;
+  margin: 1rem 0;
 }
 
 .filter label {

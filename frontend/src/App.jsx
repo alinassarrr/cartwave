@@ -10,6 +10,7 @@ import CustomersPage from "./pages/Admin/CustomersPage";
 import AnalyticsPage from "./pages/Admin/AnalyticsPage";
 import SettingsPage from "./pages/Admin/SettingsPage";
 import UserLayout from "./Layouts/UserLayout";
+import UserProductsPage from "./pages/ProductsPage";
 import Test from "./pages/Test";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 
       <Route element={<UserLayout />}>
         <Route path="/home" element={<HomePage />} />
+        <Route path="/products" element={<UserProductsPage />} />
       </Route>
     </Routes>
   );
