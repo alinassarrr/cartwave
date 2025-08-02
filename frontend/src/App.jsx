@@ -3,8 +3,8 @@ import "./Styles/App.css";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import AdminLayout from "./Layouts/AdminLayout";
-import DashboardPage from "./pages/Admin/DashboardPage";
-import OrdersPage from "./pages/Admin/OrdersPage";
+import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
+import OrdersManagementPage from "./pages/Admin/OrdersManagementPage";
 import ProductsPage from "./pages/Admin/ProductsPage";
 import CustomersPage from "./pages/Admin/CustomersPage";
 import AnalyticsPage from "./pages/Admin/AnalyticsPage";
@@ -18,8 +18,8 @@ function App() {
       <Route path="/" element={<AuthPage />} />
 
       <Route path="/admin" element={<AdminLayout />}>
-        <Route index path="dashboard" element={<DashboardPage />} />
-        <Route path="orders" element={<OrdersPage />} />
+        <Route index path="dashboard" element={<AdminDashboardPage />} />
+        <Route path="orders" element={<OrdersManagementPage />} />
         <Route path="products" element={<ProductsPage />} />
         <Route path="customers" element={<CustomersPage />} />
         <Route path="analytics" element={<AnalyticsPage />} />

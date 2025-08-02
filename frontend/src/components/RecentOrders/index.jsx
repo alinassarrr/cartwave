@@ -46,13 +46,13 @@ const RecentOrders = () => {
       <div className="order-list">
         {orders.map((order) => (
           <InfoCard
-            id={order.id}
+            icon="https://via.placeholder.com/36"
+            title={order.id}
             subtitle={order.customer}
             amount={order.amount}
             status={order.status}
           />
         ))}
-        ;
       </div>
     </div>
   );

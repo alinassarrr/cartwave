@@ -1,12 +1,19 @@
 import OrderStatusStamp from "../OrderStatusStamp";
 import "./styles.css";
 
-const InfoCard = ({ title, subtitle, amount, status }) => {
+const InfoCard = ({ icon, title, subtitle, amount, status }) => {
   return (
     <div className="info-card">
       <div className="info-left">
-        <strong>{title}</strong>
-        <span>{subtitle}</span>
+        {icon && (
+          <div className="info-icon">
+            <img src={icon} alt="icon" />
+          </div>
+        )}
+        <div className="info-text">
+          <strong>{title}</strong>
+          <span>{subtitle}</span>
+        </div>
       </div>
 
       <div className="info-right">

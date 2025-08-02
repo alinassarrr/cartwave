@@ -1,4 +1,4 @@
-.order-card {
+.info-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,28 +6,34 @@
   border: 1px solid #eee;
   border-radius: 6px;
   background-color: #fafafa;
-  transition: box-shadow 0.2s ease;
 }
-
-.order-card:hover {
+.info-card:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.order-id {
+.info-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid white;
+}
+
+.info-text {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  font-size: 14px;
-  flex: 1;
 }
 
-.order-id strong {
-  font-size: 15px;
-}
-
-.order-amount {
-  font-weight: 500;
-  font-size: 14px;
-  width: 100px;
+.info-right {
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }

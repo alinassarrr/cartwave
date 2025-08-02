@@ -46,6 +46,7 @@ const LowStockProducts = () => {
       <div className="product-list">
         {products.map((product, index) => (
           <InfoCard
+            icon="https://via.placeholder.com/36"
             key={index}
             title={product.id}
             subtitle={product.sku}
@@ -53,7 +54,6 @@ const LowStockProducts = () => {
             status={product.status}
           />
         ))}
-        ;
       </div>
     </div>
   );
