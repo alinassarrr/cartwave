@@ -1,87 +1,79 @@
 .auth-wrapper {
-  background-color: #ffffff;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 80px 20px;
+  min-height: 100vh;
+  background-color: #fff;
 }
 
 .auth-box {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 2rem;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 6px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 70px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .auth-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
 }
 
 .auth-subtitle {
-  font-size: 0.9rem;
+  font-size: 14px;
   color: #666;
-  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .auth-toggle {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.toggle-active {
-  background-color: #222;
-  color: #fff;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 1rem;
+  gap: 16px;
 }
-
 .auth-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.85rem;
+  font-size: 14px;
   color: #555;
+  gap: 50px;
 }
 
-.remember-me {
+.auth-options .remember-me {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 8px;
 }
 
-.forgot-password {
-  text-decoration: none;
-  color: #666;
-  font-size: 0.85rem;
-}
-
-.submit-button {
-  width: 100%;
-  margin-top: 0.5rem;
+.auth-options .remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .auth-footer {
-  margin-top: 1rem;
-  font-size: 0.85rem;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 12px;
 }
 
 .auth-footer span {
   font-weight: 600;
+  color: #5a4fcf;
   cursor: pointer;
-  color: #000;
 }
