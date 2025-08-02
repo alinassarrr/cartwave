@@ -1,0 +1,58 @@
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-family: sans-serif;
+  width: 100%;
+}
+
+.filter label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.dropDown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.dropDown select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 1rem;
+  min-width: 150px;
+}
+
+.price-range {
+  display: flex;
+  flex-direction: row;
+}
+
+.price-range label {
+  font-size: 1rem;
+  font-weight: 500;
+  align-self: center;
+}
+
+.price-range input {
+  text-align: center;
+  padding: 0.4rem;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 0.9rem;
+  max-width: 80px;
+}
+.clear-filter {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
