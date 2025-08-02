@@ -1,35 +1,41 @@
-import { useState } from "react";
+import { useCart } from "../../contexts/CartContext";
 import Counter from "./Counter";
 import "./styles.css";
+import { BsTrash } from "react-icons/bs";
 
-const CartItemCard = () => {
-  const [quantity, setQuantity] = useState(1);
-  const price = 5;
+const CartItemCard = ({ item }) => {
+  const { updateQuantity, removeFromCart } = useCart();
 
   const handleQuantityChange = (newQty) => {
-    setQuantity(newQty);
+    updateQuantity(item.id, newQty);
   };
 
-  const total = (price * quantity).toFixed(2);
+  const handleRemove = () => {
+    removeFromCart(item.id);
+  };
+
+  const total = (item.price * item.quantity).toFixed(2);
 
   return (
     <div className="cart-item-card">
       <div className="item-img">
-        <img src="public/img/itemcard/items.png" alt="Product" />
+        <img src={item.img} alt={item.title} />
       </div>
 
       <div className="item-details">
-        <p className="item-title">Wireless Headphones</p>
-        <p className="item-decs">Bluetooth, Noise-Cancelling</p>
-        <p className="item-price">$ {price}</p>
+        <p className="item-title">{item.title}</p>
+        <p className="item-decs">{item.description}</p>
+        <p className="item-price">$ {item.price}</p>
       </div>
 
       <div className="item-actions">
-        <Counter initial={quantity} onChange={handleQuantityChange} />
+        <Counter initial={item.quantity} onChange={handleQuantityChange} />
 
         <div className="total-price">${total}</div>
 
-        <button className="remove">Remove</button>
+        <div className="remove" onClick={handleRemove}>
+          <BsTrash color="red" size={18} />
+        </div>
       </div>
     </div>
   );
