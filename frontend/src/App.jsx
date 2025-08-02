@@ -9,6 +9,8 @@ import ProductsPage from "./pages/Admin/ProductsPage";
 import CustomersPage from "./pages/Admin/CustomersPage";
 import AnalyticsPage from "./pages/Admin/AnalyticsPage";
 import SettingsPage from "./pages/Admin/SettingsPage";
+import UserLayout from "./Layouts/UserLayout";
+import Test from "./pages/Test";
 
 function App() {
   return (
@@ -24,9 +26,9 @@ function App() {
         <Route path="settings" element={<SettingsPage />} />
       </Route>
 
-      {/* <Route element={<UserLayout />}> */}
-      <Route path="/home" element={<HomePage />} />
-      {/* </Route> */}
+      <Route element={<UserLayout />}>
+        <Route path="/home" element={<HomePage />} />
+      </Route>
     </Routes>
   );
 }

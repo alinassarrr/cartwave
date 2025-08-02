@@ -14,18 +14,12 @@ const AdminLayout = () => {
   return (
     <div className="admin-layout">
       <Navbar />
-      {user.role === "admin" ? (
-        <div className="admin-body">
-          <AdminSidebar />
-          <div className="admin-content">
-            <Outlet />
-          </div>
-        </div>
-      ) : (
-        <div classname="user-layout">
+      <div className="admin-body">
+        <AdminSidebar />
+        <div className="admin-content">
           <Outlet />
         </div>
-      )}
+      </div>
     </div>
   );
 };
