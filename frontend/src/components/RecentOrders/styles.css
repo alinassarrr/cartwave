@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.orders-list {
+.order-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
