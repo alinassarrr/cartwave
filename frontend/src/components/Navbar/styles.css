@@ -6,7 +6,6 @@
   height: 64px;
   background-color: #1a1a1a;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
   z-index: 10;
   position: sticky;
   top: 0;
@@ -47,21 +46,9 @@
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 .nav-right span {
-  font-size: 18px;
   cursor: pointer;
-}
-
-input[type="text"] {
-  padding: 8px 12px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  width: 180px;
-  background-color: #eee;
-  color: #333;
 }
