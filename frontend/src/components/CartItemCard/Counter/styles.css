@@ -1,0 +1,27 @@
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.counter button {
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.counter button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.counter-input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

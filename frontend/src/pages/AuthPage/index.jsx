@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LogIn from "../../components/LoginPage";
 import Register from "../../components/RegisterPage";
 import "./styles.css";
+import "./styles.css";
 import { useUser } from "../../contexts/UserContext/index.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +13,14 @@ const AuthPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
+  const { setUser } = useUser();
+  const navigate = useNavigate();
   const { setUser } = useUser();
   const navigate = useNavigate();
 
@@ -36,10 +44,28 @@ const AuthPage = () => {
   //             email, password,
   //         });
   //         const user = response.data;
+  // const handleLoginSubmit = async () => {
+  //     try {
+  //         const response = await axios.post("http://localhost:8080/api/login", {
+  //             email, password,
+  //         });
+  //         const user = response.data;
 
   //         setUser(user);
   //         localStorage.setItem("user", JSON.stringify(user));
+  //         setUser(user);
+  //         localStorage.setItem("user", JSON.stringify(user));
 
+  //         if(user.role === "admin") {
+  //             navigate("/admin/dashboard");
+  //         } else {
+  //             navigate("home");
+  //         }
+  //     } catch (error){
+  //         console.error("Login failed", error.response?.data || error.message);
+
+  //     }
+  // };
   //         if(user.role === "admin") {
   //             navigate("/admin/dashboard");
   //         } else {
@@ -55,7 +81,14 @@ const AuthPage = () => {
     console.log("register data", { name, email, password, confirmPassword });
     //axios
   };
+  const handleRegisterSubmit = () => {
+    console.log("register data", { name, email, password, confirmPassword });
+    //axios
+  };
 
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+  };
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
