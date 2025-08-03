@@ -12,6 +12,7 @@ import SettingsPage from "./pages/Admin/SettingsPage";
 import UserLayout from "./Layouts/UserLayout";
 import UserProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
+import ProductDetailsPage from "./pages/ProductDetialsPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/products" element={<UserProductsPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/products/:id" element={<ProductDetailsPage />} />
       </Route>
     </Routes>
   );
