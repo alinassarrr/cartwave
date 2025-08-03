@@ -4,7 +4,7 @@ import Pagination from "../../components/Pagination";
 import Filter from "../../components/Filter";
 
 const ProductsPage = () => {
-  // sample data
+  // Enhanced product data with variants
   const products = [
     {
       id: 1,
@@ -13,6 +13,18 @@ const ProductsPage = () => {
       description:
         "High-quality wireless headphones with noise cancellation and premium sound quality.",
       price: 129.99,
+      variants: {
+        color: [
+          { name: "Red", value: "red", inStock: true },
+          { name: "Black", value: "black", inStock: true },
+          { name: "Blue", value: "blue", inStock: false },
+        ],
+        size: [
+          { name: "Small", value: "S", inStock: true },
+          { name: "Medium", value: "M", inStock: true },
+          { name: "Large", value: "L", inStock: true },
+        ],
+      },
     },
     {
       id: 2,
@@ -21,6 +33,16 @@ const ProductsPage = () => {
       description:
         "Advanced fitness tracking with heart rate monitor and GPS capabilities.",
       price: 199.99,
+      variants: {
+        color: [
+          { name: "Black", value: "black", inStock: true },
+          { name: "Silver", value: "silver", inStock: true },
+        ],
+        size: [
+          { name: "38mm", value: "38mm", inStock: true },
+          { name: "42mm", value: "42mm", inStock: true },
+        ],
+      },
     },
     {
       id: 3,
@@ -29,6 +51,12 @@ const ProductsPage = () => {
       description:
         "Waterproof portable speaker with 20-hour battery life and crystal clear sound.",
       price: 79.99,
+      variants: {
+        color: [
+          { name: "Black", value: "black", inStock: true },
+          { name: "Red", value: "red", inStock: true },
+        ],
+      },
     },
     {
       id: 4,
@@ -37,6 +65,7 @@ const ProductsPage = () => {
       description:
         "Fast wireless charging pad compatible with all Qi-enabled devices.",
       price: 49.99,
+      // No variants - simple product
     },
     {
       id: 5,
@@ -45,6 +74,12 @@ const ProductsPage = () => {
       description:
         "High-precision gaming mouse with customizable RGB lighting and programmable buttons.",
       price: 89.99,
+      variants: {
+        color: [
+          { name: "Black", value: "black", inStock: true },
+          { name: "White", value: "white", inStock: true },
+        ],
+      },
     },
     {
       id: 6,
@@ -53,6 +88,16 @@ const ProductsPage = () => {
       description:
         "Premium mechanical keyboard with tactile switches and backlit keys.",
       price: 149.99,
+      variants: {
+        color: [
+          { name: "Black", value: "black", inStock: true },
+          { name: "White", value: "white", inStock: true },
+        ],
+        size: [
+          { name: "87 Keys", value: "87", inStock: true },
+          { name: "104 Keys", value: "104", inStock: true },
+        ],
+      },
     },
     {
       id: 7,
@@ -69,18 +114,26 @@ const ProductsPage = () => {
       description:
         "True wireless earbuds with active noise cancellation and 30-hour battery life.",
       price: 159.99,
+      variants: {
+        color: [
+          { name: "Black", value: "black", inStock: true },
+          { name: "White", value: "white", inStock: true },
+        ],
+      },
     },
   ];
+
   if (products.length === 0) {
     return (
       <div className="container cart-page">
         <div className="empty">
           <h2>No products yet to show</h2>
-          <p>Try visitng this page later</p>
+          <p>Try visiting this page later</p>
         </div>
       </div>
     );
   }
+
   return (
     <div className="container products">
       <Filter />
@@ -93,6 +146,7 @@ const ProductsPage = () => {
             title={product.title}
             description={product.description}
             price={product.price}
+            variants={product.variants}
           />
         ))}
       </section>
