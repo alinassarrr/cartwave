@@ -11,8 +11,8 @@ return new class extends Migration {
             $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->enum('action', ['update_status', 'cancel_order', 'edit_order']);
-            $table->enum('old_status', ['Pending', 'Paid', 'Packed', 'Shipped'])->nullable();
-            $table->enum('new_status', ['Pending', 'Paid', 'Packed', 'Shipped'])->nullable();
+            $table->enum('old_status', ['pending', 'paid', 'packed', 'shipped'])->nullable();
+            $table->enum('new_status', ['pending', 'paid', 'packed', 'shipped'])->nullable();
             $table->timestamps();
         });
     }
