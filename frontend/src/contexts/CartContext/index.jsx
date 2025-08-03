@@ -20,12 +20,12 @@ export const CartProvider = ({ children }) => {
         // inc quantity
         return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + product.quantity }
             : item
         );
       } else {
         // add new
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product }];
       }
     });
   };
@@ -45,13 +45,16 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     setCart([]);
   };
-
   const getCartTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-
   const getCartCount = () => {
     return cart.reduce((count, item) => count + item.quantity, 0);
+  };
+
+  // check if a product is in cart
+  const isProductInCart = (productId) => {
+    return cart.find((item) => item.productId === productId);
   };
 
   return (
@@ -64,6 +67,7 @@ export const CartProvider = ({ children }) => {
         clearCart,
         getCartTotal,
         getCartCount,
+        isProductInCart,
       }}
     >
       {children}
