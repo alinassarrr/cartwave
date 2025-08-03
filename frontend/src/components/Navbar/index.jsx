@@ -53,7 +53,7 @@ const Navbar = () => {
                 to="/categories"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Category
+                Wave Deals
               </NavLink>
             </li>
           </>
