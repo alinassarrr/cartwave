@@ -19,7 +19,7 @@ const AuthPage = () => {
   const handleLoginSubmit = () => {
     const mockUser = {
       name: "salem",
-      role: "user",
+      role: "admin",
     };
     setUser(mockUser);
     localStorage.setItem("user", JSON.stringify(mockUser));

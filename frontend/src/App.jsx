@@ -5,12 +5,17 @@ import HomePage from "./pages/HomePage";
 import AdminLayout from "./Layouts/AdminLayout";
 import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
 import OrdersManagementPage from "./pages/Admin/OrdersManagementPage";
-import ProductsPage from "./pages/Admin/ProductsPage";
+import AdminProductsPage from "./pages/Admin/AdminProductsPage";
 import CustomersPage from "./pages/Admin/CustomersPage";
 import AnalyticsPage from "./pages/Admin/AnalyticsPage";
-import SettingsPage from "./pages/Admin/SettingsPage";
+import AdminSettingsPage from "./pages/Admin/AdminSettingsPage";
 import UserLayout from "./Layouts/UserLayout";
+import AdminOrderDetailsPage from "./pages/Admin/AdminOrderDetailsPage";
+import AdminCreateProduct from "./pages/Admin/AdminCreateProduct";
 import Test from "./pages/Test";
+import AdminEditProduct from "./components/AdminEditProduct";
+import AdminCustomerPage from "./pages/Admin/AdminCustomerPage";
+import AdminNotificationsPage from "./pages/Admin/AdminNotificationPage";
 
 function App() {
   return (
@@ -20,10 +25,14 @@ function App() {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index path="dashboard" element={<AdminDashboardPage />} />
         <Route path="orders" element={<OrdersManagementPage />} />
-        <Route path="products" element={<ProductsPage />} />
-        <Route path="customers" element={<CustomersPage />} />
+        <Route path="products" element={<AdminProductsPage />} />
+        <Route path="/admin/products/:id/edit" element={<AdminEditProduct />} />
+        <Route path="/admin/products/create" element={<AdminCreateProduct />} />
+        <Route path="/admin/customers" element={<AdminCustomerPage />} />
         <Route path="analytics" element={<AnalyticsPage />} />
-        <Route path="settings" element={<SettingsPage />} />
+        <Route path="notifications" element={<AdminNotificationsPage />} />
+        <Route path="settings" element={<AdminSettingsPage />} />
+        <Route path="orders/:orderId" element={<AdminOrderDetailsPage />} />
       </Route>
 
       <Route element={<UserLayout />}>
