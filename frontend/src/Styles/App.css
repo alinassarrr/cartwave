@@ -27,3 +27,7 @@ li a {
   font-weight: 500;
   transition: color 0.3s ease;
 }
+img {
+  max-width: 100%;
+  object-fit: cover;
+}
