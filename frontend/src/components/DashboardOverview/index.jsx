@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import OverviewCard from "../OverviewCard";
+import SectionHeader from "../SectionHeader";
 //import Axios from "axios"  after chadi and abd finishes
 
 import "./styles.css";
@@ -20,8 +21,10 @@ const DashboardOverview = () => {
 
   return (
     <div className="dashboard-overview">
-      <h2>Dashboard Overview</h2>
-      <p>Monitor your store performance and manage operations</p>
+      <SectionHeader
+        title="Dashboard Overview"
+        subtitle="Monitor your store performance and manage operations"
+      />
 
       <div className="overview-grid">
         <OverviewCard

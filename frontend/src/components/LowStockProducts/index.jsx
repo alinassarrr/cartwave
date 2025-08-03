@@ -41,6 +41,7 @@ const LowStockProducts = () => {
       <div className="low-stock-header">
         <h3>Low Stock Products</h3>
         <span className="view-all">View all</span>
+        {/* //button navigate to products  */}
       </div>
 
       <div className="product-list">
