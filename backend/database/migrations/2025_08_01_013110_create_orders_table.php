@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->decimal('shipping_price', 10, 2)->default(0.00);
             $table->enum('status', ['pending', 'paid', 'packed', 'shipped'])->default('pending');
             $table->timestamps();
+            $table->index('created_at');
+            $table->index('status');
         });
     }
     
