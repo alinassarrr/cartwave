@@ -1,6 +1,8 @@
 import { useUser } from "../../contexts/UserContext/index.jsx";
 import { useCart } from "../../contexts/CartContext";
 import InputField from "../InputField";
+import { Link } from "react-router-dom";
+import { FaBell } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { BsBellFill, BsCartFill, BsPersonCircle } from "react-icons/bs";
 import "./styles.css";
@@ -63,8 +65,17 @@ const Navbar = () => {
       <div className="nav-right">
         {user?.role === "admin" ? (
           <>
-            <span>Bell icon</span>
-            <span>{user?.name}</span>
+            <Link to="/admin/notifications" className="nav-icon">
+              <FaBell />
+            </Link>
+            <Link to="/admin/settings" className="nav-user">
+              <img
+                src={user.profilePic || "/default-profile.png"}
+                alt="profile"
+                className="nav-profile-pic"
+              />
+              <span>{user?.name}</span>
+            </Link>
           </>
         ) : (
           <>

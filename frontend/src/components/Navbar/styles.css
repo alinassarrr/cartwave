@@ -54,6 +54,44 @@
   cursor: pointer;
 }
 
+.nav-icon {
+  margin-right: 20px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.nav-icon:hover {
+  color: #00cccc;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.nav-user:hover {
+  color: #00cccc;
+}
+
+.nav-profile-pic {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.nav-links li a.active {
+  font-weight: 800;
+  border-bottom: 2px solid #00cccc;
+  color: #00cccc;
+}
+
+.nav-links li a:hover {
+  color: #00cccc;
+  
 .nav-icons {
   display: flex;
   gap: 1rem;

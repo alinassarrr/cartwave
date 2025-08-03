@@ -1,0 +1,11 @@
+.customers-table {
+  margin-top: 20px;
+}
+
+.customers-header-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-weight: bold;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}

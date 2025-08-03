@@ -3,24 +3,36 @@
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
-  color: white;
+  color: rgb(255, 255, 255);
   display: inline-block;
   min-width: 70px;
   text-align: center;
 }
 
-.status-stamp.pending {
+.status-stamp.Pending {
   background-color: #f0ad4e;
 }
 
-.status-stamp.paid {
+.status-stamp.Paid {
   background-color: #5cb85c;
 }
 
-.status-stamp.shipped {
-  background-color: #5bc0de;
+.status-stamp.Shipped {
+  background-color: #6e8e98;
+}
+
+.status-stamp.Processing {
+  background-color: #28a07e;
+}
+
+.status-stamp.Delivered {
+  background-color: #036701;
+}
+
+.status-stamp.Cancelled {
+  background-color: #aa0505;
 }
 
 .status-stamp.default {
-  background-color: #999;
+  background-color: #413131;
 }

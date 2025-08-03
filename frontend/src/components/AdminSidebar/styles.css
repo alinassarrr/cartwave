@@ -1,6 +1,6 @@
 .admin-sidebar {
   width: 220px;
-  background-color: #a7a4a4;
+  background-color: #eee;
   padding: 20px 0;
   border-right: 1px solid #e0e0e0;
   flex-shrink: 0;
@@ -29,5 +29,5 @@
 }
 
 .sidebar-menu li a:hover {
-  color: #00cccc;
+  color: #238c8c;
 }

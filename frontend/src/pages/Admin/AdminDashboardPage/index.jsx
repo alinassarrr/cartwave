@@ -3,7 +3,7 @@ import RecentOrders from "../../../components/RecentOrders";
 import LowStockProducts from "../../../components/LowStockProducts";
 import "./styles.css";
 
-const DashboardPage = () => {
+const AdminDashboardPage = () => {
   return (
     <div className="dashboard-page">
       <DashboardOverview />
@@ -15,4 +15,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default AdminDashboardPage;

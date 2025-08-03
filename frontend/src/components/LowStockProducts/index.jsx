@@ -41,11 +41,13 @@ const LowStockProducts = () => {
       <div className="low-stock-header">
         <h3>Low Stock Products</h3>
         <span className="view-all">View all</span>
+        {/* //button navigate to products  */}
       </div>
 
       <div className="product-list">
         {products.map((product, index) => (
           <InfoCard
+            icon="https://via.placeholder.com/36"
             key={index}
             title={product.id}
             subtitle={product.sku}
@@ -53,7 +55,6 @@ const LowStockProducts = () => {
             status={product.status}
           />
         ))}
-        ;
       </div>
     </div>
   );
