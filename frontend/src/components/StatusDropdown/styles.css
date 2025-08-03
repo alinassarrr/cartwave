@@ -1,0 +1,12 @@
+.status-dropdown {
+  position: absolute;
+  z-index: 1000;
+}
+
+.status-dropdown select {
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
