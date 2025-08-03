@@ -1,7 +1,7 @@
 import { useUser } from "../../contexts/UserContext/index.jsx";
 import { useCart } from "../../contexts/CartContext";
 import InputField from "../InputField";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { BsBellFill, BsCartFill, BsPersonCircle } from "react-icons/bs";
 import "./styles.css";
 import NavIcon from "../NavIcon/index.jsx";
@@ -9,6 +9,7 @@ import NavIcon from "../NavIcon/index.jsx";
 const Navbar = () => {
   const { user } = useUser();
   const { getCartCount } = useCart();
+
   return (
     <nav className="navbar container">
       <div className="logo">CartWave</div>
@@ -32,13 +33,28 @@ const Navbar = () => {
         ) : (
           <>
             <li>
-              <Link to="/home">Home</Link>
+              <NavLink
+                to="/home"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/products">Products</Link>
+              <NavLink
+                to="/products"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Products
+              </NavLink>
             </li>
             <li>
-              <Link to="/categories">Category</Link>
+              <NavLink
+                to="/categories"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Category
+              </NavLink>
             </li>
           </>
         )}
@@ -55,19 +71,25 @@ const Navbar = () => {
             <InputField type="text" placeholder="Search Product..." />
             <ul className="nav-icons">
               <li>
-                <Link to="/cart">
-                  <NavIcon Icon={BsCartFill} count={getCartCount()} />
-                </Link>
+                <NavLink to="/cart">
+                  {({ isActive }) => (
+                    <NavIcon
+                      Icon={BsCartFill}
+                      count={getCartCount()}
+                      active={isActive}
+                    />
+                  )}
+                </NavLink>
               </li>
               <li>
-                <Link to="/notifications">
+                <NavLink to="/notifications">
                   <NavIcon Icon={BsBellFill} count={0} />
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/profile">
+                <NavLink to="/profile">
                   <BsPersonCircle size={18} />
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </>

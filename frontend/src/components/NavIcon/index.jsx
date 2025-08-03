@@ -1,10 +1,10 @@
 import React from "react";
 import "./styles.css";
 import { BsCartFill } from "react-icons/bs";
-const NavIcon = ({ Icon, count }) => {
+const NavIcon = ({ Icon, count, active }) => {
   return (
     <div className="nav-icon">
-      <Icon size={18} />
+      <Icon size={18} color={active ? "#00cccc" : "white"} />
       {count > 0 && <span className="icon-badge">{count}</span>}
     </div>
   );
