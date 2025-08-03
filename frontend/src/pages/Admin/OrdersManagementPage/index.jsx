@@ -1,8 +1,13 @@
+import OrdersManagement from "../../../components/OrderManagement";
+import AdminOrderOverview from "../../../components/AdminOrderOverview";
+
 const OrdersManagementPage = () => {
   return (
-    <div>
-      <h1>Orders Page</h1>
-    </div>
+    <>
+      <AdminOrderOverview />
+
+      <OrdersManagement />
+    </>
   );
 };
 
