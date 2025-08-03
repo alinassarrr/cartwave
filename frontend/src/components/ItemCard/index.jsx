@@ -2,10 +2,15 @@ import React from "react";
 import "./styles.css";
 import { FaCartArrowDown } from "react-icons/fa";
 import { useCart } from "../../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const ItemCard = ({ id, img, title, description, price }) => {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
+  const handleDetailsPage = (productId) => {
+    navigate(`/products/${productId}`);
+  };
   const handleAddToCart = () => {
     const product = {
       id: id,
@@ -18,7 +23,12 @@ const ItemCard = ({ id, img, title, description, price }) => {
   };
 
   return (
-    <div className="item-card">
+    <div
+      className="item-card"
+      onClick={() => {
+        handleDetailsPage(id);
+      }}
+    >
       <div className="image-wrapper">
         <img src={img} alt={title} />
       </div>
