@@ -9,7 +9,7 @@ import Counter from "../../components/CartItemCard/Counter";
 const ProductDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { addToCart, updateQuantity } = useCart();
+  const { addToCart } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState();
   const [selectedSize, setSelectedSize] = useState();
@@ -66,8 +66,20 @@ const ProductDetailsPage = () => {
 
   const handleAddToCart = () => {
     const cartItem = {
-      id: `${product.id}`,
+      id: product.id,
+      productId: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0],
+      quantity: quantity,
+      color: product.variants?.color?.[0] || null,
+      size: product.variants?.size?.[0] || null,
     };
+    console.log("Adding :", cartItem);
+    addToCart(cartItem);
+  };
+  const handleQuantityChange = (q) => {
+    setQuantity(q);
   };
   return (
     <section className="container product-details">
@@ -157,17 +169,13 @@ const ProductDetailsPage = () => {
           )}
           <div className="quantity">
             <p>Quantity</p>
-            <Counter
-              onChange={() => {
-                updateQuantity(product.id);
-              }}
-            />
+            <Counter initial={quantity} onChange={handleQuantityChange} />
           </div>
           {/* Add to Cart */}
           <div className="add-to-cart-section">
             <button
               className="add-to-cart-btn"
-              onClick={addToCart}
+              onClick={handleAddToCart}
               disabled={!product.inStock}
             >
               {product.inStock ? "Add to Cart" : "Out of Stock"}
