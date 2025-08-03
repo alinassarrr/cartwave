@@ -7,7 +7,7 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
-  const { cart, getCartTotal, clearCart } = useCart();
+  const { cart, getCartTotal, clearCart, addToCart } = useCart();
   const navigate = useNavigate();
   const handleBack = () => {
     navigate("/products");
