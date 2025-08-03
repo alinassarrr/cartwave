@@ -48,10 +48,7 @@
 }
 
 .remove {
-  background: #ff4d4d;
-  color: white;
   padding: 4px 10px;
-  border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
 }

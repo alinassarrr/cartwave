@@ -10,7 +10,9 @@ import CustomersPage from "./pages/Admin/CustomersPage";
 import AnalyticsPage from "./pages/Admin/AnalyticsPage";
 import SettingsPage from "./pages/Admin/SettingsPage";
 import UserLayout from "./Layouts/UserLayout";
-import Test from "./pages/Test";
+import UserProductsPage from "./pages/ProductsPage";
+import CartPage from "./pages/CartPage";
+import ProductDetailsPage from "./pages/ProductDetialsPage";
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
 
       <Route element={<UserLayout />}>
         <Route path="/home" element={<HomePage />} />
+        <Route path="/products" element={<UserProductsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/products/:id" element={<ProductDetailsPage />} />
       </Route>
     </Routes>
   );

@@ -2,6 +2,7 @@ import { useUser } from "../../contexts/UserContext";
 import { Navigate, Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import "./styles.css";
+import { CartProvider } from "../../contexts/CartContext";
 
 const UserLayout = () => {
   const { user } = useUser();
@@ -11,12 +12,14 @@ const UserLayout = () => {
   }
 
   return (
-    <div className="user-layout">
-      <Navbar />
-      <div className="user-content">
-        <Outlet />
+    <CartProvider>
+      <div className="user-layout">
+        <Navbar />
+        <div className="user-content">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </CartProvider>
   );
 };
 
