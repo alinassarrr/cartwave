@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->integer('stock');
             $table->enum('color', ['Red', 'Blue', 'Black', 'White']);
             $table->enum('size', ['S', 'M', 'L', 'XL']);
-            $table->string('image_path')->nullable();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
