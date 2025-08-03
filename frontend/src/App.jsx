@@ -16,6 +16,9 @@ import Test from "./pages/Test";
 import AdminEditProduct from "./components/AdminEditProduct";
 import AdminCustomerPage from "./pages/Admin/AdminCustomerPage";
 import AdminNotificationsPage from "./pages/Admin/AdminNotificationPage";
+import UserProductsPage from "./pages/ProductsPage";
+import CartPage from "./pages/CartPage";
+import ProductDetailsPage from "./pages/ProductDetialsPage";
 
 function App() {
   return (
@@ -37,6 +40,9 @@ function App() {
 
       <Route element={<UserLayout />}>
         <Route path="/home" element={<HomePage />} />
+        <Route path="/products" element={<UserProductsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/products/:id" element={<ProductDetailsPage />} />
       </Route>
     </Routes>
   );
