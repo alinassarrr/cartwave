@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Checkout\CheckoutRequest;
+use App\Http\Requests\User\CheckoutRequest;
 use App\Services\User\CheckoutService;
 use Illuminate\Support\Facades\Auth;
 
