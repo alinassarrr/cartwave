@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\FilterProductRequest;
-use App\Services\ProductService;
+use App\Services\User\ProductService;
 
 class ProductController extends Controller {
     public function index(FilterProductRequest $request) {
