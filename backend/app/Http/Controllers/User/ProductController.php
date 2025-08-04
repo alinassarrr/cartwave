@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\FilterProductRequest;
+use App\Http\Requests\User\FilterProductRequest;
 use App\Services\User\ProductService;
 
 class ProductController extends Controller {
