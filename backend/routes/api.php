@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Common\AuthController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\AddressController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -26,4 +27,12 @@ Route::prefix('products')->group(function () {
 Route::middleware('auth:api')->prefix('orders')->group(function () {
     Route::get('/', [OrderController::class, 'index']);
     Route::get('/{id}', [OrderController::class, 'show']);
+});
+
+Route::middleware('auth:api')->prefix('addresses')->group(function () {
+    Route::get('/', [AddressController::class, 'index']);
+    Route::post('/', [AddressController::class, 'store']);
+    Route::post('/{id}/set-default', [AddressController::class, 'setDefault']);
+    Route::post('/{id}', [AddressController::class, 'update']);
+    Route::post('/{id}/delete', [AddressController::class, 'destroy']);
 });
