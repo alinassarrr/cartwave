@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Services\OrderService;
+use App\Services\User\OrderService;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller {
