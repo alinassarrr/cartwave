@@ -12,42 +12,36 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller {
-    protected AuthService $authService;
-
-    public function __construct(AuthService $authService) {
-        $this->authService = $authService;
-    }
-
     public function login(LoginRequest $request) {
-        return $this->authService->login($request->validated());
+        $result = AuthService::login($request->validated());
+        return $this->responseJSON($result);
     }
 
     public function register(RegisterRequest $request) {
-        return $this->authService->register($request->validated());
+        $result = AuthService::register($request->validated());
+        return $this->responseJSON($result);
     }
 
     public function logout() {
         Auth::logout();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully logged out',
-        ]);
+        return $this->responseJSON(null, 'success');
     }
 
     public function refresh() {
-        return $this->authService->respondWithToken(Auth::refresh());
+        return $this->responseJSON(AuthService::refresh());
     }
 
     public function me() {
-        return response()->json(Auth::user());
+        return $this->responseJSON(Auth::user());
     }
 
     public function sendResetLinkEmail(SendResetLinkRequest $request) {
-        return $this->authService->sendResetLink($request->validated());
+        $result = AuthService::sendResetLink($request->validated());
+        return $this->responseJSON($result);
     }
 
     public function reset(ResetPasswordRequest $request) {
-        return $this->authService->resetPassword($request->validated());
+        $result = AuthService::resetPassword($request->validated());
+        return $this->responseJSON($result);
     }
 }

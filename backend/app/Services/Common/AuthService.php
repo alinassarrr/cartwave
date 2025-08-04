@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use App\Traits\RespondsWithToken;
 
 class AuthService {
-    use RespondsWithToken;
-
-    public function login(array $credentials) {
+    public static function login(array $credentials) {
         $token = Auth::attempt($credentials);
 
         if (! $token) {
@@ -22,10 +19,10 @@ class AuthService {
             ], 401);
         }
 
-        return $this->respondWithToken($token);
+        return self::respondWithToken($token);
     }
 
-    public function register(array $data) {
+    public static function register(array $data) {
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name'  => $data['last_name'],
@@ -35,26 +32,24 @@ class AuthService {
 
         $token = Auth::login($user);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User created successfully',
+        return [
             'user' => $user,
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ];
     }
 
-    public function sendResetLink(array $data) {
+    public static function sendResetLink(array $data) {
         $status = Password::sendResetLink(['email' => $data['email']]);
 
         return $status === Password::RESET_LINK_SENT
-            ? response()->json(['status' => __($status)])
+            ? ['status' => __($status)]
             : response()->json(['message' => __($status)], 400);
     }
 
-    public function resetPassword(array $data) {
+    public static function resetPassword(array $data) {
         $status = Password::reset(
             $data,
             function ($user, $password) {
@@ -66,7 +61,21 @@ class AuthService {
         );
 
         return $status === Password::PASSWORD_RESET
-            ? response()->json(['status' => __($status)])
+            ? ['status' => __($status)]
             : response()->json(['message' => __($status)], 400);
+    }
+
+    public static function refresh() {
+        return self::respondWithToken(Auth::refresh());
+    }
+
+    protected static function respondWithToken($token) {
+        return [
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ];
     }
 }
