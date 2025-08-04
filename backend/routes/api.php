@@ -5,6 +5,7 @@ use App\Http\Controllers\Common\AuthController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\AddressController;
+use App\Http\Controllers\User\CheckoutController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -36,3 +37,5 @@ Route::middleware('auth:api')->prefix('addresses')->group(function () {
     Route::post('/{id}', [AddressController::class, 'update']);
     Route::post('/{id}/delete', [AddressController::class, 'destroy']);
 });
+
+Route::middleware('auth:api')->post('/cart/checkout', [CheckoutController::class, 'checkout']);
