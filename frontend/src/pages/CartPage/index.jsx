@@ -21,8 +21,13 @@ const CartPage = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
+  const handleNavigate = () => {
+    navigate("/orders");
+
   const handleClearCart = () => {
     dispatch(clearCart());
+
   };
   if (cart.length === 0) {
     return (
@@ -62,7 +67,9 @@ const CartPage = () => {
             <span>Total:</span>
             <span>${cartTotal.toFixed(2)}</span>
           </div>
-          <button className="checkout-btn">Proceed to Checkout</button>
+          <button className="checkout-btn" onClick={handleNavigate}>
+            Proceed to Checkout
+          </button>
         </div>
         <div className="bottom-cart">
           <div className="back-cart" onClick={handleBack}>

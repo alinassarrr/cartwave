@@ -4,7 +4,7 @@ import { BsCartFill } from "react-icons/bs";
 const NavIcon = ({ Icon, count, active }) => {
   return (
     <div className="nav-icon">
-      <Icon size={18} color={active ? "#00cccc" : "white"} />
+      <Icon size={24} color={active ? "#00cccc" : "white"} />
       {count > 0 && <span className="icon-badge">{count}</span>}
     </div>
   );
