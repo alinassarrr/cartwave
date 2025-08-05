@@ -1,5 +1,11 @@
 import React from "react";
-import { useCart } from "../../contexts/CartContext";
+// import { useCart } from "../../contexts/CartContext";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectCartItems,
+  selectCartTotal,
+  clearCart,
+} from "../../store/cart/slice";
 import CartItemCard from "../../components/CartItemCard";
 import "./styles.css";
 import { BsTrash } from "react-icons/bs";
@@ -7,10 +13,16 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
-  const { cart, getCartTotal, clearCart } = useCart();
+  // const { cart, getCartTotal, clearCart } = useCart();
+  const cart = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
+  };
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
   if (cart.length === 0) {
     return (
@@ -40,7 +52,7 @@ const CartPage = () => {
           <h3>Order Summary</h3>
           <div className="summary-item">
             <span>Subtotal:</span>
-            <span>${getCartTotal()}</span>
+            <span>${cartTotal.toFixed(2)}</span>
           </div>
           <div className="summary-item">
             <span>Shipping:</span>
@@ -48,7 +60,7 @@ const CartPage = () => {
           </div>
           <div className="summary-item total">
             <span>Total:</span>
-            <span>${getCartTotal()}</span>
+            <span>${cartTotal.toFixed(2)}</span>
           </div>
           <button className="checkout-btn">Proceed to Checkout</button>
         </div>
@@ -57,7 +69,7 @@ const CartPage = () => {
             <BsArrowLeftCircle />
             <p>Go back Shopping</p>
           </div>
-          <div className="clear-cart" onClick={clearCart}>
+          <div className="clear-cart" onClick={handleClearCart}>
             <BsTrash />
             <p>Clear Cart</p>
           </div>
