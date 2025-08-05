@@ -24,10 +24,10 @@ const CartPage = () => {
 
   const handleNavigate = () => {
     navigate("/orders");
+  };
 
   const handleClearCart = () => {
     dispatch(clearCart());
-
   };
   if (cart.length === 0) {
     return (

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCart } from "../../contexts/CartContext";
+// import { useCart } from "../../contexts/CartContext";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cart/slice";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import { FaStar } from "react-icons/fa";
 
@@ -9,7 +11,7 @@ import Counter from "../../components/CartItemCard/Counter";
 const ProductDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState();
   const [selectedSize, setSelectedSize] = useState();
@@ -72,11 +74,11 @@ const ProductDetailsPage = () => {
       price: product.price,
       image: product.images[0],
       quantity: quantity,
-      color: product.variants?.color?.[0] || null,
-      size: product.variants?.size?.[0] || null,
+      color: selectedColor || product.variants?.color?.[0] || null,
+      size: selectedSize || product.variants?.size?.[0] || null,
     };
-    console.log("Adding :", cartItem);
-    addToCart(cartItem);
+    console.log("Adding to cart :", cartItem);
+    dispatch(addToCart(cartItem));
   };
   const handleQuantityChange = (q) => {
     setQuantity(q);

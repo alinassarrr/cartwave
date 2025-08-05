@@ -1,15 +1,40 @@
 import React, { useState } from "react";
-import { useCart } from "../../contexts/CartContext";
+// import { useCart } from "../../contexts/CartContext";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BsArrowLeftCircle } from "react-icons/bs";
+import {
+  selectCartItems,
+  selectCartTotal,
+  clearCart,
+} from "../../store/cart/slice";
 import OrderForm from "./OrderForm";
 import OrderSummary from "./OrderSummary";
 import EmptyCart from "./EmptyCart";
 import "./styles.css";
+import axios from "axios";
 
 const PlaceOrderPage = () => {
   const navigate = useNavigate();
-  const { cart, getCartTotal, getCartCount, clearCart } = useCart();
+  const dispatch = useDispatch();
+  const cart = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
+  // const { cart, getCartTotal, getCartCount, clearCart } = useCart();
+
+  const createOrderAPI = async (orderData) => {
+    // try {
+    //   const response = await axios.post("/api/orders", orderData, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       // 'Authorization': `Bearer ${token}`,
+    //     },
+    //   });
+    //   return { ...response.data, fromAPI: true };
+    // } catch (error) {
+    //   throw new Error("failed to place order");
+    // }
+    return { orderId: orderData.orderId, fromAPI: false };
+  };
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -41,13 +66,18 @@ const PlaceOrderPage = () => {
     if (!formData.streetAddress.trim())
       newErrors.streetAddress = "Street address is required";
     if (!formData.city.trim()) newErrors.city = "City is required";
-    if (!formData.state.trim()) newErrors.state = "State is required";
-    if (!formData.zipCode.trim()) newErrors.zipCode = "ZIP code is required";
+    // if (!formData.state.trim()) newErrors.state = "State is required";
+    // if (!formData.zipCode.trim()) newErrors.zipCode = "ZIP code is required";
     setErrors(newErrors);
+    console.log("Validation errors:", newErrors); // Add this line
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Add this line
   };
 
   const handlePlaceOrder = async () => {
+    console.log("Place Order button clicked!");
     if (!validateForm()) return;
+    console.log("Form validation passed!");
 
     setIsSubmitting(true);
 
@@ -89,10 +119,10 @@ const PlaceOrderPage = () => {
 
         // Order totals
         totals: {
-          subtotal: getCartTotal(),
+          subtotal: cartTotal,
           shipping: 0, // Free shipping
-          total: getCartTotal(),
-          itemCount: getCartCount(),
+          total: cartTotal,
+          itemCount: cart.reduce((count, item) => count + item.quantity, 0),
         },
 
         // Payment information (for future use)
@@ -109,20 +139,43 @@ const PlaceOrderPage = () => {
         },
       };
 
+      let result;
+      try {
+        result = await createOrderAPI(orderData);
+        console.log("order placed successfully", result);
+      } catch (apiError) {
+        console.warn("API failed, using localStorage fallback:", apiError);
+
+        const existingOrders = JSON.parse(
+          localStorage.getItem("orders") || "[]"
+        );
+        const updatedOrders = [...existingOrders, orderData];
+        localStorage.setItem("orders", JSON.stringify(updatedOrders));
+
+        result = { orderId: orderData.orderId, success: true };
+      }
+
       // Get existing orders from localStorage
-      const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+      // const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
 
       // Add new order to the array
-      const updatedOrders = [...existingOrders, orderData];
+      // const updatedOrders = [...existingOrders, orderData];
 
       // Save back to localStorage
-      localStorage.setItem("orders", JSON.stringify(updatedOrders));
+      // localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
       // Clear the cart after successful order
-      clearCart();
+      dispatch(clearCart());
 
       // Show success message
-      alert(`Order placed successfully! Order ID: ${orderData.orderId}`);
+      const message = result.fromAPI
+        ? `Order placed successfully via API! Order ID: ${
+            result.orderId || orderData.orderId
+          }`
+        : `Order placed successfully (offline mode)! Order ID: ${
+            result.orderId || orderData.orderId
+          }`;
+      alert(message);
 
       // Navigate to orders page or home
       navigate("/orders");

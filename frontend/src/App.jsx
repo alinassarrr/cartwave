@@ -22,7 +22,6 @@ import ProfilePage from "./pages/ProfilePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import NotificationPage from "./pages/NotificationPage";
 
-
 function App() {
   return (
     <div>
@@ -48,18 +47,17 @@ function App() {
           <Route path="orders/:orderId" element={<AdminOrderDetailsPage />} />
         </Route>
 
-
-      <Route element={<UserLayout />}>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/products" element={<UserProductsPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/products/:id" element={<ProductDetailsPage />} />
-        <Route path="/orders" element={<PlaceOrderPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/notification" element={<NotificationPage />} />
-      </Route>
-    </Routes>
-
+        <Route element={<UserLayout />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/products" element={<UserProductsPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/products/:id" element={<ProductDetailsPage />} />
+          <Route path="/orders" element={<PlaceOrderPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/notification" element={<NotificationPage />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
