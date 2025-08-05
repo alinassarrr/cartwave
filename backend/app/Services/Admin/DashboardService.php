@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 
 class DashboardService {
-    public function getSummary(): array {
+    public static function getSummary(): array {
         return [
             'total_orders' => Order::count(),
             'total_revenue' => Order::sum('total'),
@@ -16,7 +16,7 @@ class DashboardService {
         ];
     }
 
-    public function getRecentOrders(int $limit = 5) {
+    public static function getRecentOrders(int $limit = 5) {
         return Order::with('user')
             ->latest()
             ->take($limit)
@@ -24,6 +24,7 @@ class DashboardService {
             ->map(function ($order) {
                 return [
                     'order_id' => $order->id,
+                    'order_number' => $order->order_number,
                     'customer_name' => $order->user?->first_name,
                     'status' => $order->status,
                     'total' => $order->total,
@@ -32,10 +33,18 @@ class DashboardService {
             });
     }
 
-    public function getLowStockProducts(int $threshold = 3, int $limit = 5) {
+    public static function getLowStockProducts(int $threshold = 3, int $limit = 5) {
         return Product::where('stock', '<', $threshold)
             ->orderBy('stock')
             ->take($limit)
-            ->get(['id', 'name', 'stock']);
+            ->get()
+            ->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'sku' => $product->sku,
+                    'name' => $product->name,
+                    'stock' => $product->stock,
+                ];
+            });
     }
 }
