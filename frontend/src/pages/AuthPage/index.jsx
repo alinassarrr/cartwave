@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import LogIn from "../../components/LoginPage";
 import Register from "../../components/RegisterPage";
 import "./styles.css";
-import { useUser } from "../../contexts/UserContext/index.jsx";
+// import { useUser } from "../../contexts/UserContext/index.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginUser,
+  loginUserThunk,
+  selectAuthLoading,
+  selectAuthError,
+} from "../../store/auth/slice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -13,21 +20,58 @@ const AuthPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { setUser } = useUser();
+  // const { setUser } = useUser();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loading = useSelector(selectAuthLoading);
+  const error = useSelector(selectAuthError);
 
-  const handleLoginSubmit = () => {
-    const mockUser = {
-      name: "salem",
-      role: "admin",
-    };
-    setUser(mockUser);
-    localStorage.setItem("user", JSON.stringify(mockUser));
-    if (mockUser.role === "user") {
+  const handleLoginSubmit = async () => {
+    if (email === "admin@test.com" && password === "admin") {
+      const mockUser = {
+        user: {
+          name: "Admin User",
+          role: "admin",
+        },
+        token: "mock-token",
+      };
+      dispatch(loginUser(mockUser));
+      // (
+      //   loginUserThunk.fulfilled(mockUser, "auth/loginUser", {
+      //     email,
+      //     password,
+      //   })
+      // );
+      navigate("/admin/dashboard");
+    } else if (email === "customer@test.com" && password === "customer") {
+      const mockUser = {
+        user: {
+          name: "Customer name",
+          role: "customer",
+        },
+        token: "mock-customer-token",
+      };
+      dispatch(loginUser(mockUser));
+      // (
+      //   loginUserThunk.fulfilled(mockUser, "auth/loginUser", {
+      //     email,
+      //     password,
+      //   })
+      // );
       navigate("/home");
     } else {
-      navigate("/admin/dashboard");
+      //api call
+      //dispatch (loginuserthunk ({email, password}));
+      alert("invalid");
     }
+    // setUser(mockUser);
+    // localStorage.setItem("user", JSON.stringify(mockUser));
+    // dispatch(loginUser(mockUser));
+    // if (mockUser.user.role === "customer") {
+    //   navigate("/home");
+    // } else {
+    //   navigate("/admin/dashboard");
+    // }
   };
 
   // const handleLoginSubmit = async () => {

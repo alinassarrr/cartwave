@@ -1,5 +1,8 @@
-import { useUser } from "../../contexts/UserContext/index.jsx";
-import { useCart } from "../../contexts/CartContext";
+// import { useUser } from "../../contexts/UserContext/index.jsx";
+import { useSelector } from "react-redux";
+import { selectUser, selectIsAuthenticated } from "../../store/auth/slice.js";
+// import { useCart } from "../../contexts/CartContext";
+import { selectCartCount } from "../../store/cart/slice.js";
 import InputField from "../InputField";
 import { FaBell } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
@@ -8,8 +11,11 @@ import "./styles.css";
 import NavIcon from "../NavIcon/index.jsx";
 
 const Navbar = () => {
-  const { user } = useUser();
-  const { getCartCount } = useCart();
+  // const { user } = useUser();
+  const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const cartCount = useSelector(selectCartCount);
+  // const { getCartCount } = useCart();
 
   return (
     <nav className="navbar container">
@@ -85,7 +91,7 @@ const Navbar = () => {
                   {({ isActive }) => (
                     <NavIcon
                       Icon={BsCartFill}
-                      count={getCartCount()}
+                      count={cartCount}
                       active={isActive}
                     />
                   )}

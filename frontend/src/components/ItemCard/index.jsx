@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { FaCartArrowDown, FaEye, FaShoppingCart } from "react-icons/fa";
-import { useCart } from "../../contexts/CartContext";
+// import { useCart } from "../../contexts/CartContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, selectCartItemCount } from "../../store/cart/slice";
 import { useNavigate } from "react-router-dom";
 
 const ItemCard = ({ id, img, title, description, price, variants }) => {
-  const { addToCart, isProductInCart } = useCart();
+  // const { addToCart, isProductInCart } = useCart();
+  const dispatch = useDispatch();
+  const cartItemCount = useSelector((state) => selectCartItemCount(state, id));
   const navigate = useNavigate();
   const [isAdding, setIsAdding] = useState(false);
 
   // if product already in the cart
-  const isInCart = isProductInCart(id);
+  const isInCart = cartItemCount > 0;
 
   const handleViewDetails = () => {
     navigate(`/products/${id}`);
@@ -30,7 +34,7 @@ const ItemCard = ({ id, img, title, description, price, variants }) => {
       size: variants?.size?.[0] || null,
     };
 
-    addToCart(cartItem);
+    dispatch(addToCart(cartItem));
   };
 
   const handleViewInCart = () => {
@@ -60,7 +64,7 @@ const ItemCard = ({ id, img, title, description, price, variants }) => {
             {isInCart ? (
               <button className="view-in-cart-btn" onClick={handleViewInCart}>
                 <FaShoppingCart />
-                <span>View in Cart</span>
+                <span>View in Cart ({cartItemCount})</span>
               </button>
             ) : (
               <button

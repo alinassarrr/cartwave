@@ -43,7 +43,7 @@ const RevenueOverviewGraph = () => {
           <Line
             type="monotone"
             dataKey="revenue"
-            stroke="black"
+            stroke="#00cccc"
             strokeWidth={3}
             activeDota={{ r: 6 }}
           />

@@ -22,23 +22,32 @@ import ProfilePage from "./pages/ProfilePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import NotificationPage from "./pages/NotificationPage";
 
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<AuthPage />} />
+    <div>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
 
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index path="dashboard" element={<AdminDashboardPage />} />
-        <Route path="orders" element={<OrdersManagementPage />} />
-        <Route path="products" element={<AdminProductsPage />} />
-        <Route path="/admin/products/:id/edit" element={<AdminEditProduct />} />
-        <Route path="/admin/products/create" element={<AdminCreateProduct />} />
-        <Route path="/admin/customers" element={<AdminCustomerPage />} />
-        <Route path="analytics" element={<AnalyticsPage />} />
-        <Route path="notifications" element={<AdminNotificationsPage />} />
-        <Route path="settings" element={<AdminSettingsPage />} />
-        <Route path="orders/:orderId" element={<AdminOrderDetailsPage />} />
-      </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="orders" element={<OrdersManagementPage />} />
+          <Route path="products" element={<AdminProductsPage />} />
+          <Route
+            path="/admin/products/:id/edit"
+            element={<AdminEditProduct />}
+          />
+          <Route
+            path="/admin/products/create"
+            element={<AdminCreateProduct />}
+          />
+          <Route path="/admin/customers" element={<AdminCustomerPage />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="notifications" element={<AdminNotificationsPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
+          <Route path="orders/:orderId" element={<AdminOrderDetailsPage />} />
+        </Route>
+
 
       <Route element={<UserLayout />}>
         <Route path="/home" element={<HomePage />} />
@@ -50,6 +59,7 @@ function App() {
         <Route path="/notification" element={<NotificationPage />} />
       </Route>
     </Routes>
+
   );
 }
 

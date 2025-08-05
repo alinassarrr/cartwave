@@ -1,17 +1,21 @@
-import { useCart } from "../../contexts/CartContext";
+// import { useCart } from "../../contexts/CartContext";
+import { useDispatch } from "react-redux";
+import { updateQuantity, removeFromCart } from "../../store/cart/slice";
 import Counter from "./Counter";
 import "./styles.css";
 import { BsTrash } from "react-icons/bs";
 
 const CartItemCard = ({ item }) => {
-  const { updateQuantity, removeFromCart } = useCart();
+  // const { updateQuantity, removeFromCart } = useCart();
+  const dispatch = useDispatch();
 
   const handleQuantityChange = (newQty) => {
-    updateQuantity(item.id, newQty);
+    // updateQuantity(item.id, newQty);
+    dispatch(updateQuantity({ id: item.id, quantity: newQty }));
   };
 
   const handleRemove = () => {
-    removeFromCart(item.id);
+    dispatch(removeFromCart(item.id));
   };
 
   const total = (item.price * item.quantity).toFixed(2);
