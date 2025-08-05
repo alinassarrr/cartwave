@@ -50,7 +50,7 @@ class CheckoutService {
                 $item['product']->decrement('stock', $item['quantity']);
             }
 
-            Event::dispatch(new OrderPlaced($order));
+            //Event::dispatch(new OrderPlaced($order));
 
             return $order->load('orderItems.product');
         });
