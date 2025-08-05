@@ -9,6 +9,14 @@ class AuditLog extends Model {
     
     use HasFactory;
 
+    protected $fillable = [
+        'admin_id',
+        'order_id',
+        'action',
+        'old_status',
+        'new_status',
+    ];
+
     public function admin() {
         return $this->belongsTo(User::class, 'admin_id');
     }

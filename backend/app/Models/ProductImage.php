@@ -9,6 +9,13 @@ class ProductImage extends Model {
     
     use Hasfactory;
 
+    protected $fillable = [
+        'product_id',
+        'image_path',
+        'is_primary',
+        'position',
+    ];
+
     public function product() {
         return $this->belongsTo(Product::class);
     }
