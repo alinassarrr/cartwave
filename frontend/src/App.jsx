@@ -19,6 +19,9 @@ import AdminNotificationsPage from "./pages/Admin/AdminNotificationPage";
 import UserProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import ProductDetailsPage from "./pages/ProductDetialsPage";
+import ProfilePage from "./pages/ProfilePage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
+import NotificationPage from "./pages/NotificationPage";
 
 function App() {
   return (
@@ -43,6 +46,9 @@ function App() {
         <Route path="/products" element={<UserProductsPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />
+        <Route path="/orders" element={<PlaceOrderPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/notification" element={<NotificationPage />} />
       </Route>
     </Routes>
   );

@@ -91,7 +91,7 @@
 
 .checkout-btn {
   width: 100%;
-  background: green;
+  background: #00cccc;
   color: white;
   border: none;
   padding: 1rem;
@@ -100,10 +100,13 @@
   font-size: 1rem;
   font-weight: bold;
   margin-top: 1rem;
+  transition: all 0.3s;
 }
 
 .checkout-btn:hover {
-  background: blue;
+  transform: translateY(-2px);
+  scale: 1.01;
+  box-sizing: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 .bottom-cart {
   display: flex;

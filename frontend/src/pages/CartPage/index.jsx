@@ -12,6 +12,9 @@ const CartPage = () => {
   const handleBack = () => {
     navigate(-1);
   };
+  const handleNavigate = () => {
+    navigate("/orders");
+  };
   if (cart.length === 0) {
     return (
       <div className="container cart-page">
@@ -40,7 +43,7 @@ const CartPage = () => {
           <h3>Order Summary</h3>
           <div className="summary-item">
             <span>Subtotal:</span>
-            <span>${getCartTotal()}</span>
+            <span>${getCartTotal().toFixed(2)}</span>
           </div>
           <div className="summary-item">
             <span>Shipping:</span>
@@ -48,9 +51,11 @@ const CartPage = () => {
           </div>
           <div className="summary-item total">
             <span>Total:</span>
-            <span>${getCartTotal()}</span>
+            <span>${getCartTotal().toFixed(2)}</span>
           </div>
-          <button className="checkout-btn">Proceed to Checkout</button>
+          <button className="checkout-btn" onClick={handleNavigate}>
+            Proceed to Checkout
+          </button>
         </div>
         <div className="bottom-cart">
           <div className="back-cart" onClick={handleBack}>
