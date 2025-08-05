@@ -12,7 +12,6 @@ import AdminSettingsPage from "./pages/Admin/AdminSettingsPage";
 import UserLayout from "./Layouts/UserLayout";
 import AdminOrderDetailsPage from "./pages/Admin/AdminOrderDetailsPage";
 import AdminCreateProduct from "./pages/Admin/AdminCreateProduct";
-import Test from "./pages/Test";
 import AdminEditProduct from "./components/AdminEditProduct";
 import AdminCustomerPage from "./pages/Admin/AdminCustomerPage";
 import AdminNotificationsPage from "./pages/Admin/AdminNotificationPage";
