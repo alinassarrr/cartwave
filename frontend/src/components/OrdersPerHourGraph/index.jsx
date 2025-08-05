@@ -47,7 +47,7 @@ const OrdersPerHourGraph = () => {
           <Line
             type="monotone"
             dataKey="orders"
-            stroke="#10B981"
+            stroke="#b185a7"
             strokeWidth={3}
             activeDot={{ r: 6 }}
           />
