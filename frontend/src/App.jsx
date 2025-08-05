@@ -10,7 +10,6 @@ import CustomersPage from "./pages/Admin/CustomersPage";
 import AnalyticsPage from "./pages/Admin/AnalyticsPage";
 import SettingsPage from "./pages/Admin/SettingsPage";
 import UserLayout from "./Layouts/UserLayout";
-import Test from "./pages/Test";
 
 function App() {
   return (
