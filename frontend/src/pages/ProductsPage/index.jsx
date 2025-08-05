@@ -2,6 +2,13 @@ import "./styles.css";
 import ItemCard from "../../components/ItemCard";
 import Pagination from "../../components/Pagination";
 import Filter from "../../components/Filter";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setProducts,
+  selectPaginatedProducts,
+  selectProductsLoading,
+} from "../../store/products/slice";
 
 const ProductsPage = () => {
   // Enhanced product data with variants

@@ -1,14 +1,20 @@
 import React from "react";
-import { useCart } from "../../contexts/CartContext";
+// import { useCart } from "../../contexts/CartContext";
+import { useSelector } from "react-redux";
+import { selectCartItems, selectCartTotal } from "../../store/cart/slice";
 
 const OrderSummary = ({ onPlaceOrder, isSubmitting }) => {
-  const { cart, getCartTotal, getCartCount } = useCart();
+  // const { cart, getCartTotal, getCartCount } = useCart();
+  const cart = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
   return (
     <div className="order-summary-section">
       <h2>Order Summary</h2>
       <div className="order-items">
-        <h3>Items ({getCartCount()})</h3>
+        <h3>
+          Items ({cart.reduce((count, item) => count + item.quantity, 0)})
+        </h3>
         {cart.map((item) => (
           <div key={item.id} className="order-item">
             <div className="item-image">
@@ -31,7 +37,7 @@ const OrderSummary = ({ onPlaceOrder, isSubmitting }) => {
       <div className="order-totals">
         <div className="total-row">
           <span>Subtotal:</span>
-          <span>${getCartTotal().toFixed(2)}</span>
+          <span>${cartTotal.toFixed(2)}</span>
         </div>
         <div className="total-row">
           <span>Shipping:</span>
@@ -39,14 +45,17 @@ const OrderSummary = ({ onPlaceOrder, isSubmitting }) => {
         </div>
         <div className="total-row total">
           <span>Total:</span>
-          <span>${getCartTotal().toFixed(2)}</span>
+          <span>${cartTotal.toFixed(2)}</span>
         </div>
         <button
           className="place-order-btn"
-          onClick={onPlaceOrder}
+          onClick={() => {
+            console.log("Button clicked!");
+            onPlaceOrder();
+          }}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Placing Order..." : "Place Order"}
+          {isSubmitting ? "Processing..." : "Place Order"}
         </button>
       </div>
     </div>

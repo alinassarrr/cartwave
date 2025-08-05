@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { store } from "./store/index.js";
 import App from "./App.jsx";
 
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
@@ -13,6 +12,5 @@ createRoot(document.getElementById("root")).render(
         <App />
       </BrowserRouter>
     </Provider>
-
   </StrictMode>
 );
