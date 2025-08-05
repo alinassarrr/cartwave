@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\AnalyticsController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -74,4 +75,10 @@ Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
 
 Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
     Route::get('/customers', [CustomersController::class, 'index']);
+});
+
+Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/analytics/summary', [AnalyticsController::class, 'summary']);
+    Route::get('/analytics/revenue-chart', [AnalyticsController::class, 'revenueChart']);
+    Route::get('/analytics/orders-per-hour', [AnalyticsController::class, 'ordersPerHourChart']);
 });
