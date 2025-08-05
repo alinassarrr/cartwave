@@ -10,6 +10,7 @@ use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\CustomersController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -69,4 +70,8 @@ Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
     Route::get('/products/low-stock', [ProductsController::class, 'lowStock']);
     Route::get('/products/out-of-stock', [ProductsController::class, 'outOfStock']);
     Route::get('/products/summary', [ProductsController::class, 'summary']);
+});
+
+Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/customers', [CustomersController::class, 'index']);
 });
