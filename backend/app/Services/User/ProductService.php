@@ -3,10 +3,11 @@
 namespace App\Services\User;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService {
     public static function getFilteredProducts(array $filters) {
-        $query = Product::query()->with('category', 'images');
+        $query = Product::with(['category', 'images']);
 
         if (!empty($filters['search'])) {
             $query->where('name', 'like', '%' . $filters['search'] . '%');
@@ -33,16 +34,26 @@ class ProductService {
         }
 
         if (!empty($filters['sort_by'])) {
-            $query->orderBy(
-                $filters['sort_by'],
-                $filters['sort_order'] ?? 'asc'
-            );
+            $query->orderBy($filters['sort_by'], $filters['sort_order'] ?? 'asc');
         }
 
-        return $query->paginate($filters['per_page'] ?? 10);
+        return $query->paginate($filters['per_page'] ?? 10)->through(function ($product) {
+            $product->images->transform(function ($image) {
+                $image->image_url = Storage::url($image->image_path);
+                return $image;
+            });
+            return $product;
+        });
     }
 
     public static function getProductById($id) {
-        return Product::with('category', 'images')->findOrFail($id);
+        $product = Product::with(['category', 'images'])->findOrFail($id);
+
+        $product->images->transform(function ($image) {
+            $image->image_url = Storage::url($image->image_path);
+            return $image;
+        });
+
+        return $product;
     }
 }
