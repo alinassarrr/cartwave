@@ -66,4 +66,7 @@ Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
     Route::get('/products/{id}', [ProductsController::class, 'show']);
     Route::put('/products/{id}', [ProductsController::class, 'update']);
     Route::delete('/products/{id}', [ProductsController::class, 'destroy']);
+    Route::get('/products/low-stock', [ProductsController::class, 'lowStock']);
+    Route::get('/products/out-of-stock', [ProductsController::class, 'outOfStock']);
+    Route::get('/products/summary', [ProductsController::class, 'summary']);
 });

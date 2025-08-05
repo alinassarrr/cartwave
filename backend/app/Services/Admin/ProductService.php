@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class ProductService {
     public static function getFilteredProducts(array $filters) {
@@ -94,5 +95,26 @@ class ProductService {
         Storage::disk('public')->put($filename, $decoded);
 
         return $filename;
+    }
+    
+    public static function getLowStockProducts(int $threshold = 3) {
+        return Product::with('images')
+            ->where('stock', '<', $threshold)
+            ->orderBy('stock')
+            ->get();
+    }
+
+    public static function getOutOfStockProducts() {
+        return Product::with('images')
+            ->where('stock', 0)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+    }
+
+    public static function getSummaryCards(): array {
+        return [
+            'total_products' => Product::count(),
+            'total_categories' => Category::count(),
+        ];
     }
 }

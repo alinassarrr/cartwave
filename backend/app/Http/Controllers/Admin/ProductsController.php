@@ -32,4 +32,19 @@ class ProductsController extends Controller {
         ProductService::deleteProduct($id);
         return $this->responseJSON(null, 'Product deleted successfully');
     }
+
+    public function lowStock() {
+        $products = ProductService::getLowStockProducts();
+        return $this->responseJSON($products);
+    }
+
+    public function outOfStock() {
+        $products = ProductService::getOutOfStockProducts();
+        return $this->responseJSON($products);
+    }
+
+    public function summary() {
+        $summary = ProductService::getSummaryCards();
+        return $this->responseJSON($summary);
+    }
 }
