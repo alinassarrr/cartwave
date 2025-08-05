@@ -82,13 +82,17 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/notifications">
-                  <NavIcon Icon={BsBellFill} count={0} />
+                <NavLink to="/notification">
+                  {({ isActive }) => (
+                    <NavIcon Icon={BsBellFill} active={isActive} />
+                  )}
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/profile">
-                  <BsPersonCircle size={18} />
+                  {({ isActive }) => (
+                    <NavIcon Icon={BsPersonCircle} active={isActive} />
+                  )}
                 </NavLink>
               </li>
             </ul>
