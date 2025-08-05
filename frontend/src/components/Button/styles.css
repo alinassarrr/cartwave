@@ -43,3 +43,7 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+.button-icon {
+  margin-right: 0px;
+  display: inline-flex;
+}

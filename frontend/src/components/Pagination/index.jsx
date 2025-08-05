@@ -17,7 +17,7 @@ const Pagination = () => {
       : console.log("no next");
   };
   return (
-    <div className="pagination">
+    <section className="pagination">
       <button className="pg-btn" disabled={currPage === 1} onClick={prev}>
         prev
       </button>
@@ -39,7 +39,7 @@ const Pagination = () => {
       >
         next
       </button>
-    </div>
+    </section>
   );
 };
 

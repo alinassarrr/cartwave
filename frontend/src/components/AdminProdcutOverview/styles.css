@@ -1,0 +1,36 @@
+.admin-product-overview p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 6px;
+}
+
+.overview-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.product-summary-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.product-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-summary-text .label {
+  font-size: 14px;
+  color: #333;
+}
+
+.product-summary-text .value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.product-summary-icon {
+  font-size: 24px;
+}

@@ -11,7 +11,7 @@ const Filter = () => {
   };
 
   return (
-    <div className="filter">
+    <section className="filter">
       <label>Filter:</label>
 
       <div className="dropDown">
@@ -63,7 +63,7 @@ const Filter = () => {
       >
         Clear
       </button>
-    </div>
+    </section>
   );
 };
 
