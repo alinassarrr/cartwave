@@ -9,6 +9,7 @@ use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrdersController;
+use App\Http\Controllers\Admin\ProductsController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -57,4 +58,12 @@ Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
     Route::get('/orders', [OrdersController::class, 'index']);
     Route::get('/orders/stats', [OrdersController::class, 'stats']);
     Route::put('/orders/{id}/status', [OrdersController::class, 'updateStatus']);
+});
+
+Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/products', [ProductsController::class, 'index']);
+    Route::post('/products', [ProductsController::class, 'store']);
+    Route::get('/products/{id}', [ProductsController::class, 'show']);
+    Route::put('/products/{id}', [ProductsController::class, 'update']);
+    Route::delete('/products/{id}', [ProductsController::class, 'destroy']);
 });
