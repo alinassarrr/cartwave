@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Services\Common;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +12,7 @@ class ProfileService {
         return $user;
     }
 
-    public static function updateProfilePicture(int $userId, string $base64Image): string {
+    public static function updateProfilePicture(int $userId, string $base64Image): array {
         $user = User::findOrFail($userId);
 
         if ($user->profile_picture_url) {
@@ -31,14 +31,13 @@ class ProfileService {
             throw new \Exception('Invalid base64 image data.');
         }
 
-        $filename = 'profile_pictures/' . uniqid('admin_') . '.' . $extension;
-
+        $filename = 'profile_pictures/' . uniqid('user_') . '.' . $extension;
         Storage::disk('public')->put($filename, $decodedImage);
 
         $user->profile_picture_url = $filename;
         $user->save();
 
-        return Storage::url($filename);
+        return ['profile_picture_url' => Storage::url($filename)];
     }
 
     public static function removeProfilePicture(int $userId): void {
