@@ -1,7 +1,6 @@
 import { useUser } from "../../contexts/UserContext/index.jsx";
 import { useCart } from "../../contexts/CartContext";
 import InputField from "../InputField";
-import { Link } from "react-router-dom";
 import { FaBell } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { BsBellFill, BsCartFill, BsPersonCircle } from "react-icons/bs";
