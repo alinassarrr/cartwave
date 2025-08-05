@@ -7,6 +7,7 @@ use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\AddressController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\NotificationController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -45,4 +46,8 @@ Route::middleware('auth:api')->prefix('notifications')->group(function () {
     Route::get('/', [NotificationController::class, 'index']);
     Route::post('/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
     Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
+});
+
+Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
