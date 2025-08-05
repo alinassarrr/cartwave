@@ -8,6 +8,7 @@ use App\Http\Controllers\User\AddressController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrdersController;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -50,4 +51,10 @@ Route::middleware('auth:api')->prefix('notifications')->group(function () {
 
 Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
+});
+
+Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/orders', [OrdersController::class, 'index']);
+    Route::get('/orders/stats', [OrdersController::class, 'stats']);
+    Route::put('/orders/{id}/status', [OrdersController::class, 'updateStatus']);
 });
