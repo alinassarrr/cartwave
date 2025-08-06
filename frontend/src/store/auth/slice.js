@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { authService } from "../../api/auth";
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token"),
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem("token"),
   loading: false,
   error: null,
   userRole: null,
@@ -13,22 +14,36 @@ export const loginUserThunk = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Login failed");
-      }
-      const data = await response.json();
-      // Save token/user to localStorage if you want persistence
-      localStorage.setItem("token", data.token);
+      // const data = await authService.login(email, password);
+      const response = await authService.login(email, password);
+      const data = response.data || response;
+      localStorage.setItem("token", data.authorisation.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-      return data;
+      return {
+        user: data.user,
+        token: data.authorisation.token,
+      };
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.message || "Login failed");
+    }
+  }
+);
+
+export const registerUserThunk = createAsyncThunk(
+  "auth/registerUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      // const data = await authService.register(userData);
+      const response = await authService.register(userData);
+      const data = response.data || response;
+      localStorage.setItem("token", data.authorisation.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      return {
+        user: data.user,
+        token: data.authorisation.token,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message || "Registration failed");
     }
   }
 );
@@ -88,11 +103,28 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthenticated = true;
-      state.userRole = action.payload.user.role;
+      state.userRole = action.payload.user.role || "customer";
       state.loading = false;
       state.error = null;
     });
     builder.addCase(loginUserThunk.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+      state.isAuthenticated = false;
+    });
+    builder.addCase(registerUserThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(registerUserThunk.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isAuthenticated = true;
+      state.userRole = action.payload.user.role || "customer";
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(registerUserThunk.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
       state.isAuthenticated = false;
