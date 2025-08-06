@@ -11,7 +11,7 @@ const UserLayout = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   // const { user } = useUser();
 
-  if (!user || user.role !== "customer") {
+  if (!user || !isAuthenticated) {
     return <Navigate to="/" replace />;
   }
 

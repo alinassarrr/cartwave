@@ -11,7 +11,7 @@ const AdminLayout = () => {
   const user = useSelector(selectUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  if (!user || user.role !== "admin") {
+  if (!user || !isAuthenticated || !user.admin) {
     return <Navigate to="/" replace />;
   }
 
