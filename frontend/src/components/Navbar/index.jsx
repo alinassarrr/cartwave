@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="logo">CartWave</div>
 
       <ul className="nav-links">
-        {user?.role === "admin" ? (
+        {user?.admin ? (
           <>
             <li>
               <Link to="/admin/dashboard">Dashboard</Link>
@@ -68,7 +68,7 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-right">
-        {user?.role === "admin" ? (
+        {user?.admin ? (
           <>
             <Link to="/admin/notifications" className="nav-icon">
               <FaBell />
