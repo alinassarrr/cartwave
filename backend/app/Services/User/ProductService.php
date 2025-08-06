@@ -38,10 +38,16 @@ class ProductService {
         }
 
         return $query->paginate($filters['per_page'] ?? 10)->through(function ($product) {
-            $product->images->transform(function ($image) {
-                $image->image_url = Storage::url($image->image_path);
-                return $image;
-            });
+            if ($product->images) {
+                $product->images->transform(function ($image) {
+                    if (str_starts_with($image->image_path, 'http')) {
+                        $image->image_url = $image->image_path;
+                    } else {
+                        $image->image_url = Storage::url($image->image_path);
+                    }
+                    return $image;
+                });
+            }
             return $product;
         });
     }
@@ -50,7 +56,11 @@ class ProductService {
         $product = Product::with(['category', 'images'])->findOrFail($id);
 
         $product->images->transform(function ($image) {
-            $image->image_url = Storage::url($image->image_path);
+            if (str_starts_with($image->image_path, 'http')) {
+                $image->image_url = $image->image_path;
+            } else {
+                $image->image_url = Storage::url($image->image_path);
+            }
             return $image;
         });
 
