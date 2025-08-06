@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class OrderFactory extends Factory  {
     
@@ -15,6 +16,7 @@ class OrderFactory extends Factory  {
         $subtotal = $this->faker->randomFloat(2, 20, 300);
         $total = $subtotal + $shipping;
         return [
+            'order_number' => strtoupper(Str::random(10)),
             'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
             'total' => $total,
             'shipping_price' => $shipping,

@@ -12,6 +12,7 @@ class ProductFactory extends Factory {
     public function definition(): array {
         return [
             'name' => $this->faker->words(3, true),
+            'sku' => $this->faker->unique()->bothify('SKU-#####'),
             'description' => $this->faker->sentence(12),
             'price' => $this->faker->randomFloat(2, 5, 1000),
             'stock' => $this->faker->numberBetween(0, 500),

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Services\Admin\ProductService;
 use Illuminate\Http\Request;
+use App\Services\Admin\AIProductService;
 
 class ProductsController extends Controller {
     public function index(Request $request) {
@@ -47,4 +48,23 @@ class ProductsController extends Controller {
         $summary = ProductService::getSummaryCards();
         return $this->responseJSON($summary);
     }
+
+    public function generateDescription(Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'color' => 'required|string',
+            'size' => 'required|string',
+        ]);
+
+        $description = AIProductService::generateDescription(
+            $request->input('name'),
+            $request->input('price'),
+            $request->input('color'),
+            $request->input('size')
+        );
+
+        return $this->responseJSON(['description' => $description]);
+    }
+
 }
