@@ -5,19 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\AnalyticsService;
 
-class AnalyticsController extends Controller {
-    public function summary() {
-        $data = AnalyticsService::getSummaryMetrics();
+class AnalyticsController extends Controller
+{
+    protected $analyticsService;
+
+    public function __construct(AnalyticsService $analyticsService)
+    {
+        $this->analyticsService = $analyticsService;
+    }
+
+    public function revenue()
+    {
+        $data = $this->analyticsService->getRevenueData();
         return $this->responseJSON($data);
     }
 
-    public function revenueChart() {
-        $chart = AnalyticsService::getRevenueChartData();
-        return $this->responseJSON($chart);
-    }
-
-    public function ordersPerHourChart() {
-        $chart = AnalyticsService::getOrdersPerHourChartData();
-        return $this->responseJSON($chart);
+    public function ordersPerHour()
+    {
+        $data = $this->analyticsService->getOrdersPerHour();
+        return $this->responseJSON($data);
     }
 }
