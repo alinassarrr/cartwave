@@ -35,6 +35,7 @@ const ItemCard = ({ id, img, title, description, price, variants }) => {
     };
 
     dispatch(addToCart(cartItem));
+    setIsAdding(false);
   };
 
   const handleViewInCart = () => {
