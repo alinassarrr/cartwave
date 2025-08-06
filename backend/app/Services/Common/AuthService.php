@@ -31,6 +31,9 @@ class AuthService {
         ]);
 
         $token = Auth::login($user);
+        
+        // Load the admin relationship
+        $user->load('admin');
 
         return [
             'user' => $user,
@@ -70,8 +73,13 @@ class AuthService {
     }
 
     protected static function respondWithToken($token) {
+        $user = Auth::user();
+        
+        // Load the admin relationship
+        $user->load('admin');
+        
         return [
-            'user' => Auth::user(),
+            'user' => $user,
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
