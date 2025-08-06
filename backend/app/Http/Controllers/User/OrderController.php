@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Services\User\OrderService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller {
@@ -17,6 +18,11 @@ class OrderController extends Controller {
         if (!$order) {
             return $this->responseJSON(null, 'error', 404);
         }
+        return $this->responseJSON($order);
+    }
+
+    public function store(Request $request) {
+        $order = OrderService::createOrder(Auth::id(), $request->all());
         return $this->responseJSON($order);
     }
 }

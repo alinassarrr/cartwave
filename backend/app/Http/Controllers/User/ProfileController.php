@@ -3,24 +3,44 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Common\UpdateProfileRequest;
-use App\Http\Requests\Common\ProfileImageRequest;
-use App\Services\Common\ProfileService;
-use Illuminate\Support\Facades\Auth;
+use App\Services\User\ProfileService;
+use Illuminate\Http\Request;
 
-class ProfileController extends Controller {
-    public function show() {
-        return $this->responseJSON(Auth::user());
+class ProfileController extends Controller
+{
+    protected $profileService;
+
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
     }
 
-    public function update(UpdateProfileRequest $request) {
-        $user = ProfileService::updateProfile(Auth::id(), $request->validated());
-        return $this->responseJSON($user);
+    public function show()
+    {
+        $profile = $this->profileService->getUserProfile();
+        return $this->responseJSON($profile);
     }
 
-    public function uploadProfilePicture(ProfileImageRequest $request) {
-        $result = ProfileService::updateProfilePicture(Auth::id(), $request->validated()['profile_picture']);
-        return $this->responseJSON($result, 'Profile picture updated');
+    public function update(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'sometimes|string|max:255',
+            'last_name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:users,email,' . auth()->id(),
+            'phone' => 'sometimes|string|max:20',
+        ]);
+
+        $profile = $this->profileService->updateProfile($request->all());
+        return $this->responseJSON($profile);
     }
 
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $profile = $this->profileService->updateAvatar($request->file('avatar'));
+        return $this->responseJSON($profile);
+    }
 }
