@@ -5,7 +5,7 @@ namespace App\Services\Admin;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class CustomerService {
+class CustomersService {
     public static function getCustomersWithOrderStats(array $filters) {
         $query = User::with(['addresses', 'orders'])
             ->whereHas('orders');
