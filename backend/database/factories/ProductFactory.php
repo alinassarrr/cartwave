@@ -17,7 +17,7 @@ class ProductFactory extends Factory {
             'stock' => $this->faker->numberBetween(0, 500),
             'color' => $this->faker->randomElement(['Red', 'Blue', 'Black', 'White']),
             'size' => $this->faker->randomElement(['S', 'M', 'L', 'XL']),
-            'image_path' => $this->faker->imageUrl(640, 480, 'products', true),
+            'sku' => $this->faker->unique()->regexify('[A-Z]{2}[0-9]{6}'),
             'category_id' => null,
         ];
     }

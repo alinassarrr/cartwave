@@ -15,6 +15,7 @@ class OrderFactory extends Factory  {
         $subtotal = $this->faker->randomFloat(2, 20, 300);
         $total = $subtotal + $shipping;
         return [
+            'order_number' => 'ORD-' . strtoupper($this->faker->bothify('??##??##')),
             'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
             'total' => $total,
             'shipping_price' => $shipping,
