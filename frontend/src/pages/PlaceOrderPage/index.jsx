@@ -12,7 +12,7 @@ import OrderForm from "./OrderForm";
 import OrderSummary from "./OrderSummary";
 import EmptyCart from "./EmptyCart";
 import "./styles.css";
-import axios from "axios";
+import { ordersService } from "../../api/orders";
 
 const PlaceOrderPage = () => {
   const navigate = useNavigate();
@@ -22,18 +22,13 @@ const PlaceOrderPage = () => {
   // const { cart, getCartTotal, getCartCount, clearCart } = useCart();
 
   const createOrderAPI = async (orderData) => {
-    // try {
-    //   const response = await axios.post("/api/orders", orderData, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       // 'Authorization': `Bearer ${token}`,
-    //     },
-    //   });
-    //   return { ...response.data, fromAPI: true };
-    // } catch (error) {
-    //   throw new Error("failed to place order");
-    // }
-    return { orderId: orderData.orderId, fromAPI: false };
+    try {
+      const response = await ordersService.createOrder(orderData);
+      return { ...response, fromAPI: true };
+    } catch (error) {
+      console.error("Failed to create order via API:", error);
+      throw new Error("Failed to place order");
+    }
   };
 
   const [formData, setFormData] = useState({
@@ -82,61 +77,38 @@ const PlaceOrderPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Create complete order object with all necessary data
+      // Create order data in the format expected by the backend
       const orderData = {
-        // Order metadata
-        orderId: `ORD-${Date.now()}`,
-        orderDate: new Date().toISOString(),
-        status: "pending",
-
-        // Customer information
-        customer: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
+        total_amount: cartTotal,
+        payment_method: "cash_on_delivery",
+        notes: "",
+        shipping_address: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
           email: formData.email,
           phone: formData.phone,
-          address: {
-            street: formData.streetAddress,
-            city: formData.city,
-            state: formData.state,
-            zipCode: formData.zipCode,
-            country: formData.country,
-          },
+          street: formData.streetAddress,
+          city: formData.city,
+          state: formData.state,
+          zip_code: formData.zipCode,
+          country: formData.country,
         },
-
-        // Order items
+        billing_address: {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          street: formData.streetAddress,
+          city: formData.city,
+          state: formData.state,
+          zip_code: formData.zipCode,
+          country: formData.country,
+        },
         items: cart.map((item) => ({
-          id: item.id,
-          productId: item.productId,
-          title: item.title,
-          price: item.price,
+          product_id: item.id,
           quantity: item.quantity,
-          image: item.image,
-          color: item.color,
-          size: item.size,
-          totalPrice: item.price * item.quantity,
+          price: item.price,
         })),
-
-        // Order totals
-        totals: {
-          subtotal: cartTotal,
-          shipping: 0, // Free shipping
-          total: cartTotal,
-          itemCount: cart.reduce((count, item) => count + item.quantity, 0),
-        },
-
-        // Payment information (for future use)
-        payment: {
-          method: "cash_on_delivery", // Default for now
-          status: "pending",
-        },
-
-        // Shipping information
-        shipping: {
-          method: "standard",
-          cost: 0,
-          estimatedDelivery: "3-5 business days",
-        },
       };
 
       let result;
@@ -169,11 +141,11 @@ const PlaceOrderPage = () => {
 
       // Show success message
       const message = result.fromAPI
-        ? `Order placed successfully via API! Order ID: ${
-            result.orderId || orderData.orderId
+        ? `Order placed successfully! Order Number: ${
+            result.order_number || "N/A"
           }`
         : `Order placed successfully (offline mode)! Order ID: ${
-            result.orderId || orderData.orderId
+            result.orderId || "N/A"
           }`;
       alert(message);
 
