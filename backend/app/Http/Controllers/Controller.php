@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller
-{
-    //
+use App\Traits\RespondsWithJson;
+
+abstract class Controller {
+    use RespondsWithJson;
 }

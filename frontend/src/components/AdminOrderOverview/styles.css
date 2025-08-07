@@ -1,0 +1,47 @@
+.admin-order-header p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 6px;
+}
+
+.admin-order-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.order-summary-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.order-summary-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.order-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.order-summary-text .label {
+  font-size: 14px;
+  color: #333;
+}
+
+.order-summary-text .value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.order-summary-icon {
+  font-size: 24px;
+}

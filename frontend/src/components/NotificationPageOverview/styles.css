@@ -1,0 +1,66 @@
+.notifs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.notifs-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notifs-filter select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.notifs-count {
+  font-size: 14px;
+  color: #666;
+}
+
+.notifs-list {
+  background: #fdfdfd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.notif-row {
+  display: flex;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.notif-icon {
+  font-size: 20px;
+  color: #666;
+}
+
+.notif-content {
+  flex: 1;
+}
+
+.notif-content strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.notif-meta {
+  text-align: right;
+  font-size: 12px;
+  color: #999;
+}
+
+.notif-meta button {
+  border: none;
+  background: none;
+  color: #999;
+  font-weight: bold;
+  margin-top: 6px;
+  cursor: pointer;
+}
