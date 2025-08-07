@@ -27,8 +27,8 @@ COPY --from=build /app/dist /app/dist
 
 RUN npm install -g serve
 
-# Expose port vite
-EXPOSE 5173
+# Expose port for production server
+EXPOSE 3000
 
 # Start the server
 CMD ["serve", "-s", "dist", "-l", "3000"]
