@@ -12,7 +12,7 @@ import AdminSettingsPage from "./pages/Admin/AdminSettingsPage";
 import UserLayout from "./Layouts/UserLayout";
 import AdminOrderDetailsPage from "./pages/Admin/AdminOrderDetailsPage";
 import AdminCreateProduct from "./pages/Admin/AdminCreateProduct";
-import AdminEditProduct from "./components/AdminEditProduct";
+import AdminEditProductPage from "./pages/Admin/AdminEditProductPage";
 import AdminCustomerPage from "./pages/Admin/AdminCustomerPage";
 import AdminNotificationsPage from "./pages/Admin/AdminNotificationPage";
 import UserProductsPage from "./pages/ProductsPage";
@@ -33,14 +33,14 @@ function App() {
           <Route path="orders" element={<OrdersManagementPage />} />
           <Route path="products" element={<AdminProductsPage />} />
           <Route
-            path="/admin/products/:id/edit"
-            element={<AdminEditProduct />}
+            path="/admin/products/:productId/edit"
+            element={<AdminEditProductPage />}
           />
           <Route
             path="/admin/products/create"
             element={<AdminCreateProduct />}
           />
-          <Route path="/admin/customers" element={<AdminCustomerPage />} />
+          <Route path="/admin/customers" element={<CustomersPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="notifications" element={<AdminNotificationsPage />} />
           <Route path="settings" element={<AdminSettingsPage />} />

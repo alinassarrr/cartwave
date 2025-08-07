@@ -72,6 +72,7 @@ const Navbar = () => {
           <>
             <Link to="/admin/notifications" className="nav-icon">
               <FaBell />
+              <span className="notification-badge">3</span>
             </Link>
             <Link to="/admin/settings" className="nav-user">
               <img
