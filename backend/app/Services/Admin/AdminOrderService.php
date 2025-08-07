@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use Carbon\Carbon;
 
 class AdminOrderService
 {
@@ -48,9 +49,8 @@ class AdminOrderService
     public function getOrder($id)
     {
         return Order::with([
-            'user:id,first_name,last_name,email,phone',
-            'items.product',
-            'address'
+            'user:id,first_name,last_name,email',
+            'items.product'
         ])->findOrFail($id);
     }
 
@@ -60,5 +60,29 @@ class AdminOrderService
         $order->update(['status' => $status]);
         
         return $order->load(['user:id,first_name,last_name,email', 'items.product']);
+    }
+
+    public function getOrderSummary()
+    {
+       $today = Carbon::today();
+        
+        $totalOrders = Order::count();
+        
+        $pendingOrders = Order::where('status', 'pending')->count();
+        
+        $shippedToday = Order::where('status', 'shipped')
+            ->whereDate('updated_at', $today)
+            ->count();
+        
+        $revenueToday = Order::where('status', 'paid')
+            ->whereDate('created_at', $today)
+            ->sum('total') ?? 0;
+        
+        return [
+            'total_orders' => $totalOrders,
+            'pending_orders' => $pendingOrders,
+            'shipped_today' => $shippedToday,
+            'revenue_today' => $revenueToday
+        ];
     }
 } 

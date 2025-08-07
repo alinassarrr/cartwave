@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminProductService
 {
+    public function getProductOverview()
+    {
+        return [
+            'total_products' => Product::count(),
+            'low_stock' => Product::where('stock', '<=', 10)->where('stock', '>', 0)->count(),
+            'out_of_stock' => Product::where('stock', 0)->count(),
+            'categories' => \App\Models\Category::count(),
+        ];
+    }
     public function getProducts($filters = [])
     {
         $query = Product::with(['category', 'images']);

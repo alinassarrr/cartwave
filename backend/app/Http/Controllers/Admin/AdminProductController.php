@@ -22,6 +22,12 @@ class AdminProductController extends Controller
         return $this->responseJSON($products);
     }
 
+    public function overview()
+    {
+        $overview = $this->productService->getProductOverview();
+        return $this->responseJSON($overview);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,14 +36,33 @@ class AdminProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'sku' => 'required|string|unique:products,sku',
+            'sku' => 'nullable|string|unique:products,sku',
             'color' => 'nullable|string|max:50',
             'size' => 'nullable|string|max:50',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $product = $this->productService->createProduct($request->all());
-        return $this->responseJSON($product, 'Product created successfully');
+        
+        $data = $request->all();
+        if (empty($data['sku'])) {
+            // Generate a more unique SKU
+            $timestamp = time();
+            $random = rand(1000, 9999);
+            $data['sku'] = 'SKU-' . $timestamp . '-' . $random;
+            
+            
+            while (\App\Models\Product::where('sku', $data['sku'])->exists()) {
+                $random = rand(1000, 9999);
+                $data['sku'] = 'SKU-' . $timestamp . '-' . $random;
+            }
+        }
+
+        try {
+            $product = $this->productService->createProduct($data);
+            return $this->responseJSON($product, 'Product created successfully');
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     public function show($id)
