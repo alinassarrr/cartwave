@@ -21,6 +21,7 @@ import ProductDetailsPage from "./pages/ProductDetialsPage";
 import ProfilePage from "./pages/ProfilePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import NotificationPage from "./pages/NotificationPage";
+import GiftAdvisorPage from "./pages/GiftAdvisorPage";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path="/orders" element={<PlaceOrderPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/gift-advisor" element={<GiftAdvisorPage />} />
         </Route>
       </Routes>
     </div>
