@@ -48,9 +48,10 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('/cart', [CartController::class, 'clearCart']);
 
         // Orders
-        Route::get('/orders', [OrderController::class, 'index']);
-        Route::post('/orders', [OrderController::class, 'store']);
-        Route::get('/orders/{id}', [OrderController::class, 'show']);
+        Route::get('/orders', [AdminOrderController::class, 'index']);
+        Route::get('/orders/summary', [AdminOrderController::class, 'summary']);
+        Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->where('id', '[0-9]+');
+        Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->where('id', '[0-9]+');
 
         // Addresses
         Route::get('/addresses', [AddressController::class, 'index']);
@@ -77,6 +78,7 @@ Route::middleware('auth:api')->group(function () {
 
         // Products
         Route::get('/products', [AdminProductController::class, 'index']);
+        Route::get('/products/overview', [AdminProductController::class, 'overview']);
         Route::post('/products', [AdminProductController::class, 'store']);
         Route::get('/products/{id}', [AdminProductController::class, 'show']);
         Route::put('/products/{id}', [AdminProductController::class, 'update']);
@@ -85,6 +87,7 @@ Route::middleware('auth:api')->group(function () {
 
         // Orders
         Route::get('/orders', [AdminOrderController::class, 'index']);
+        Route::get('/orders/summary', [AdminOrderController::class, 'summary']);
         Route::get('/orders/{id}', [AdminOrderController::class, 'show']);
         Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus']);
 
