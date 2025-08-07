@@ -31,4 +31,15 @@ class Product extends Model {
     public function orderItems() {
         return $this->hasMany(OrderItem::class);
     }
+
+    public static function getColorOptions() {
+        return [
+            'black', 'white', 'red', 'blue', 'green', 'yellow', 'orange', 
+            'purple', 'pink', 'gray', 'brown', 'navy', 'beige', 'gold', 'silver'
+        ];
+    }
+
+    public static function getSizeOptions() {
+        return ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL'];
+    }
 }
