@@ -11,7 +11,7 @@ class CustomerService
     {
         $query = User::whereDoesntHave('admin')
             ->withCount(['orders'])
-            ->withSum('orders', 'total_amount');
+            ->withSum('orders', 'total');
 
         // Apply filters
         if (!empty($filters['search'])) {
@@ -50,7 +50,7 @@ class CustomerService
                 'addresses'
             ])
             ->withCount(['orders'])
-            ->withSum('orders', 'total_amount')
+            ->withSum('orders', 'total')
             ->findOrFail($id);
     }
 } 
