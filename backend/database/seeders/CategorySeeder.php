@@ -10,6 +10,16 @@ class CategorySeeder extends Seeder {
 
     public function run(): void {
         
-        Category::factory()->count(5)->create();
+        // Create specific categories that match our frontend
+        $categories = [
+            ['name' => 'Clothing', 'description' => 'Fashion and apparel items'],
+            ['name' => 'Electronics', 'description' => 'Electronic devices and gadgets'],
+            ['name' => 'Books', 'description' => 'Books and publications'],
+            ['name' => 'Accessories', 'description' => 'Fashion accessories and add-ons'],
+        ];
+
+        foreach ($categories as $categoryData) {
+            Category::create($categoryData);
+        }
     }
 }
