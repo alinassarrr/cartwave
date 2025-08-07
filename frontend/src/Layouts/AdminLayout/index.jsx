@@ -1,13 +1,17 @@
-import { useUser } from "../../contexts/UserContext";
+// import { useUser } from "../../contexts/UserContext";
+import { useSelector } from "react-redux";
+import { selectUser, selectIsAuthenticated } from "../../store/auth/slice";
 import { Navigate, Outlet } from "react-router-dom";
 import AdminSidebar from "../../components/AdminSidebar";
 import Navbar from "../../components/Navbar";
 import "./styles.css";
 
 const AdminLayout = () => {
-  const { user } = useUser();
+  // const { user } = useUser();
+  const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  if (!user || user.role !== "admin") {
+  if (!user || !isAuthenticated || !user.admin) {
     return <Navigate to="/" replace />;
   }
 

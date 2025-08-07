@@ -1,0 +1,173 @@
+.notification-page {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  font-size: 24px;
+  color: #333;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.badge {
+  background: #ff4757;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.mark-all-btn {
+  padding: 0.5rem 1rem;
+  background: #00cccc;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mark-all-btn:hover {
+  border: 1px solid #00cccc;
+  transform: translateY(-1px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.test-notification-btn:hover {
+  background: #259aa2;
+  transform: translateY(-1px);
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notification-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.notification-card:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.notification-card.unread {
+  border-left: 5px solid #00cccc;
+}
+
+.notification-content h3 {
+  font-size: 1rem;
+  color: #333;
+}
+
+.notification-content p {
+  margin-bottom: 8px;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.time {
+  font-size: 12px;
+  color: #888;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.read-btn,
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.read-btn {
+  background: #eee;
+  color: rgb(59, 167, 179);
+}
+
+.read-btn:hover {
+  background: rgba(0, 255, 0, 0.381);
+}
+
+.delete-btn {
+  color: red;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+.empty p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+.loading {
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
+}

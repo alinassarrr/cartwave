@@ -1,7 +1,16 @@
+import RevenueOverviewGraph from "../../../components/RevenueOverviewGraph";
+import OrdersPerHourGraph from "../../../components/OrdersPerHourGraph";
+import AnalyticsPageOverview from "../../../components/AnalyticsPageOverview";
+import "./styles.css";
+
 const AnalyticsPage = () => {
   return (
-    <div>
-      <h1>Analytics Page</h1>
+    <div className="analytics-page">
+      <AnalyticsPageOverview />
+      <div className="graph-section">
+        <RevenueOverviewGraph />
+        <OrdersPerHourGraph />
+      </div>
     </div>
   );
 };

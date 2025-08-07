@@ -18,3 +18,16 @@ body {
   padding-left: 80px;
   padding-right: 80px;
 }
+ul {
+  list-style: none;
+}
+li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+img {
+  max-width: 100%;
+  object-fit: cover;
+}

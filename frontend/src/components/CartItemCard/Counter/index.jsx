@@ -7,7 +7,7 @@ const Counter = ({ initial = 1, min = 1, max = 99, onChange }) => {
     if (quantity < max) {
       const newQty = quantity + 1;
       setQuantity(newQty);
-      onChange?.(newQty);
+      onChange(newQty);
     }
   };
 
@@ -15,14 +15,14 @@ const Counter = ({ initial = 1, min = 1, max = 99, onChange }) => {
     if (quantity > min) {
       const newQty = quantity - 1;
       setQuantity(newQty);
-      onChange?.(newQty);
+      onChange(newQty);
     }
   };
 
   return (
     <div className="counter">
       <button onClick={dec} disabled={quantity === min}>
-        –
+        -
       </button>
       <input
         type="number"

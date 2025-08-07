@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import LogIn from "../../components/LoginPage";
 import Register from "../../components/RegisterPage";
 import "./styles.css";
-import { useUser } from "../../contexts/UserContext/index.jsx";
+// import { useUser } from "../../contexts/UserContext/index.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginUserThunk,
+  registerUserThunk,
+  selectAuthLoading,
+  selectAuthError,
+} from "../../store/auth/slice";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,47 +19,52 @@ const AuthPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { setUser } = useUser();
+  // const { setUser } = useUser();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loading = useSelector(selectAuthLoading);
+  const error = useSelector(selectAuthError);
 
-  const handleLoginSubmit = () => {
-    const mockUser = {
-      name: "salem",
-      role: "user",
-    };
-    setUser(mockUser);
-    localStorage.setItem("user", JSON.stringify(mockUser));
-    if (mockUser.role === "user") {
-      navigate("/home");
-    } else {
-      navigate("/admin/dashboard");
+  const handleLoginSubmit = async () => {
+    try {
+      const result = await dispatch(
+        loginUserThunk({ email, password })
+      ).unwrap();
+
+      // if (result.user.role === "admin") {
+      //   navigate("/admin/dashboard");
+      // } else {
+      //   navigate("/home");
+      // }
+      console.log("Login result:", result);
+      console.log("User object:", result.user);
+
+      if (result.user.admin) {
+        console.log("User is admin");
+        navigate("/admin/dashboard");
+      } else {
+        console.log("User is customer");
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
     }
   };
 
-  // const handleLoginSubmit = async () => {
-  //     try {
-  //         const response = await axios.post("http://localhost:8080/api/login", {
-  //             email, password,
-  //         });
-  //         const user = response.data;
-
-  //         setUser(user);
-  //         localStorage.setItem("user", JSON.stringify(user));
-
-  //         if(user.role === "admin") {
-  //             navigate("/admin/dashboard");
-  //         } else {
-  //             navigate("home");
-  //         }
-  //     } catch (error){
-  //         console.error("Login failed", error.response?.data || error.message);
-
-  //     }
-  // };
-
-  const handleRegisterSubmit = () => {
-    console.log("register data", { name, email, password, confirmPassword });
-    //axios
+  const handleRegisterSubmit = async () => {
+    try {
+      const userData = {
+        first_name: name.split(" ")[0] || name,
+        last_name: name.split(" ").slice(1).join(" ") || "",
+        email,
+        password,
+        password_confirmation: confirmPassword,
+      };
+      const result = await dispatch(registerUserThunk(userData)).unwrap();
+      navigate("/home");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
 
   const toggleForm = () => {

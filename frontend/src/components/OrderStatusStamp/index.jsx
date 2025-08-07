@@ -1,9 +1,10 @@
 import "./styles.css";
 
 const statusColors = {
-  Pending: "pending",
-  Paid: "paid",
-  Shipped: "shipped",
+  pending: "pending",
+  paid: "paid",
+  packed: "packed",
+  shipped: "shipped",
 };
 
 const OrderStatusStamp = ({ status }) => {

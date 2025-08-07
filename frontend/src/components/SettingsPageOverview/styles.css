@@ -1,0 +1,6 @@
+.settings-content {
+  margin-top: 20px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}

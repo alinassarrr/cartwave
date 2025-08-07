@@ -1,4 +1,4 @@
-# Use Node.js 20 Alpine (better compatibility with Vite)
+# Use Node.js 20 Alpine for development
 FROM node:20-alpine
 
 # Set working directory
@@ -13,8 +13,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Expose port 5173 (Vite default)
+# Expose port 5173 for Vite dev server
 EXPOSE 5173
 
-# Start development server
-CMD ["npm", "run", "dev", "--", "--host"]
+# Start the development server
+CMD ["npm", "run", "dev"]
+
