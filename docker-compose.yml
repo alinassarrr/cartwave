@@ -16,6 +16,9 @@ services:
     ports:
       - "5173:5173"
     container_name: cartwave-frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
   # Database service (MySQL)
   database:
@@ -38,6 +41,7 @@ services:
       PMA_HOST: database
       PMA_PORT: 3306
       PMA_USER: root
+      PMA_PASSWORD: ""
     container_name: cartwave-phpmyadmin
     depends_on:
       - database

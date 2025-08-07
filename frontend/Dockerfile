@@ -1,5 +1,5 @@
-# Use Node.js 20 Alpine (better compatibility with Vite)
-FROM node:20-alpine AS build
+# Use Node.js 20 Alpine for development
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
@@ -13,23 +13,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Generate production build
-RUN npm run build
-
-
-#Stage 2: serve the built app
-# Use a lightweight web server to serve the production build
-FROM node:20-alpine
-
-WORKDIR /app
-
-COPY --from=build /app/dist /app/dist
-
-RUN npm install -g serve
-
-# Expose port vite
+# Expose port 5173 for Vite dev server
 EXPOSE 5173
 
-# Start the server
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Start the development server
+CMD ["npm", "run", "dev"]
 
