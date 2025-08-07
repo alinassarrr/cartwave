@@ -1,7 +1,6 @@
 import api from "./config";
 
 export const adminService = {
-  // Dashboard APIs
   async getDashboardOverview() {
     try {
       const response = await api.get("/admin/dashboard/overview");
@@ -43,7 +42,6 @@ export const adminService = {
     }
   },
 
-  // Analytics APIs
   async getRevenue(params = {}) {
     try {
       const response = await api.get("/admin/analytics/revenue", { params });
@@ -128,7 +126,6 @@ export const adminService = {
     }
   },
 
-  // Orders APIs
   async getOrders(params = {}) {
     try {
       const response = await api.get("/admin/orders", { params });
@@ -169,7 +166,6 @@ export const adminService = {
     }
   },
 
-  // Customers APIs
   async getCustomers(params = {}) {
     try {
       const response = await api.get("/admin/customers", { params });
@@ -190,7 +186,6 @@ export const adminService = {
     }
   },
 
-  // Notifications APIs
   async getNotifications(params = {}) {
     try {
       const response = await api.get("/admin/notifications", { params });
@@ -230,6 +225,20 @@ export const adminService = {
       return response.data;
     } catch (error) {
       console.error("API: Error deleting notification:", error);
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // AI APIs
+  async generateAIDescription(productData) {
+    try {
+      const response = await api.post(
+        "/admin/products/ai-description",
+        productData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("API: Error generating AI description:", error);
       throw error.response?.data || error.message;
     }
   },
