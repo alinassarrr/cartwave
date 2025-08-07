@@ -33,6 +33,16 @@ export const adminService = {
     }
   },
 
+  async getProductOverview() {
+    try {
+      const response = await api.get("/admin/products/overview");
+      return response.data;
+    } catch (error) {
+      console.error("API: Error fetching product overview:", error);
+      throw error.response?.data || error.message;
+    }
+  },
+
   // Analytics APIs
   async getRevenue(params = {}) {
     try {
@@ -56,7 +66,6 @@ export const adminService = {
     }
   },
 
-  // Products APIs
   async getProducts(params = {}) {
     try {
       const response = await api.get("/admin/products", { params });
@@ -126,6 +135,16 @@ export const adminService = {
       return response.data;
     } catch (error) {
       console.error("API: Error fetching admin orders:", error);
+      throw error.response?.data || error.message;
+    }
+  },
+
+  async getOrderSummary() {
+    try {
+      const response = await api.get("/admin/orders/summary");
+      return response.data;
+    } catch (error) {
+      console.error("API: Error fetching order summary:", error);
       throw error.response?.data || error.message;
     }
   },
