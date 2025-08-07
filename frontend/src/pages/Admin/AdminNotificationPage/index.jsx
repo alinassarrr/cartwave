@@ -1,76 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsBell, BsCheck, BsTrash } from "react-icons/bs";
+import { adminService } from "../../../api/admin";
 import "./styles.css";
 
 const AdminNotificationPage = () => {
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      title: "New Order Received",
-      message: "Order #ORD-001 has been placed by customer John Doe",
-      isRead: false,
-      time: "2 hours ago",
-    },
-    {
-      id: 2,
-      title: "Order Status Updated",
-      message: "Order #ORD-002 status changed to 'Shipped'",
-      isRead: true,
-      time: "1 day ago",
-    },
-    {
-      id: 3,
-      title: "New Customer Registration",
-      message: "New customer Jane Smith has registered",
-      isRead: false,
-      time: "3 hours ago",
-    },
-    {
-      id: 4,
-      title: "Low Stock Alert",
-      message: "Product 'Wireless Headphones' is running low on stock",
-      isRead: true,
-      time: "2 days ago",
-    },
-    {
-      id: 5,
-      title: "Payment Received",
-      message: "Payment for order #ORD-003 has been confirmed",
-      isRead: false,
-      time: "1 hour ago",
-    },
-    {
-      id: 6,
-      title: "Order Cancelled",
-      message: "Order #ORD-004 has been cancelled by customer",
-      isRead: true,
-      time: "4 hours ago",
-    },
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const markAsRead = (id) => {
-    setNotifications((prev) =>
-      prev.map((notification) =>
-        notification.id === id
-          ? { ...notification, isRead: true }
-          : notification
-      )
-    );
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await adminService.getNotifications();
+      setNotifications(response.data || []);
+    } catch (err) {
+      console.error("Error fetching notifications:", err);
+      setError(
+        `Failed to load notifications: ${err.message || "Unknown error"}`
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const deleteNotification = (id) => {
-    setNotifications((prev) =>
-      prev.filter((notification) => notification.id !== id)
-    );
+  const markAsRead = async (id) => {
+    try {
+      await adminService.updateNotification(id, { is_read: true });
+      setNotifications((prev) =>
+        prev.map((notification) =>
+          notification.id === id
+            ? { ...notification, is_read: true }
+            : notification
+        )
+      );
+    } catch (err) {
+      console.error("Error marking notification as read:", err);
+    }
   };
 
-  const markAllAsRead = () => {
-    setNotifications((prev) =>
-      prev.map((notification) => ({ ...notification, isRead: true }))
-    );
+  const deleteNotification = async (id) => {
+    try {
+      await adminService.deleteNotification(id);
+      setNotifications((prev) =>
+        prev.filter((notification) => notification.id !== id)
+      );
+    } catch (err) {
+      console.error("Error deleting notification:", err);
+    }
   };
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  const markAllAsRead = async () => {
+    try {
+      const unreadNotifications = notifications.filter((n) => !n.is_read);
+      await Promise.all(
+        unreadNotifications.map((notification) =>
+          adminService.updateNotification(notification.id, { is_read: true })
+        )
+      );
+      setNotifications((prev) =>
+        prev.map((notification) => ({ ...notification, is_read: true }))
+      );
+    } catch (err) {
+      console.error("Error marking all notifications as read:", err);
+    }
+  };
+
+  const unreadCount = notifications.filter((n) => !n.is_read).length;
+
+  const createTestNotification = async () => {
+    try {
+      const testNotification = {
+        user_id: 1, // Admin user ID
+        title: "Test Notification",
+        message:
+          "This is a test notification created at " +
+          new Date().toLocaleString(),
+        type: "test",
+      };
+
+      await adminService.createNotification(testNotification);
+      await fetchNotifications(); // Refresh the list
+    } catch (err) {
+      console.error("Error creating test notification:", err);
+    }
+  };
+
+  if (loading) return <div className="loading">Loading notifications...</div>;
+
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="container notification-page">
@@ -79,11 +101,28 @@ const AdminNotificationPage = () => {
           <h1>Admin Notifications</h1>
           {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
         </div>
-        {unreadCount > 0 && (
-          <button className="mark-all-btn" onClick={markAllAsRead}>
-            Mark all as read
+        <div className="header-actions">
+          {unreadCount > 0 && (
+            <button className="mark-all-btn" onClick={markAllAsRead}>
+              Mark all as read
+            </button>
+          )}
+          <button
+            className="test-notification-btn"
+            onClick={createTestNotification}
+            style={{
+              marginLeft: "10px",
+              padding: "0.5rem 1rem",
+              background: "#00b3b3",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+            }}
+          >
+            Create Test Notification
           </button>
-        )}
+        </div>
       </div>
       <div className="notifications-list">
         {notifications.length === 0 ? (
@@ -96,16 +135,18 @@ const AdminNotificationPage = () => {
             <div
               key={notification.id}
               className={`notification-card ${
-                !notification.isRead ? "unread" : ""
+                !notification.is_read ? "unread" : ""
               }`}
             >
               <div className="notification-content">
-                <h3>{notification.title}</h3>
+                <h3>{notification.title || "Notification"}</h3>
                 <p>{notification.message}</p>
-                <span className="time">{notification.time}</span>
+                <span className="time">
+                  {new Date(notification.created_at).toLocaleString()}
+                </span>
               </div>
               <div className="actions">
-                {!notification.isRead && (
+                {!notification.is_read && (
                   <button
                     className="read-btn"
                     onClick={() => markAsRead(notification.id)}

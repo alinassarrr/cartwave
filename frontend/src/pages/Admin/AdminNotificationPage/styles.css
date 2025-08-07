@@ -57,6 +57,17 @@
   transform: translateY(-1px);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.test-notification-btn:hover {
+  background: #259aa2;
+  transform: translateY(-1px);
+}
+
 .notifications-list {
   display: flex;
   flex-direction: column;
@@ -118,7 +129,7 @@
 
 .read-btn {
   background: #eee;
-  color: rgb(44, 182, 44);
+  color: rgb(59, 167, 179);
 }
 
 .read-btn:hover {
@@ -144,4 +155,19 @@
 .empty p {
   margin: 0;
   font-size: 1.1rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+.loading {
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
 }

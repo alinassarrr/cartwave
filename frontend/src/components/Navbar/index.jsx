@@ -1,4 +1,5 @@
 // import { useUser } from "../../contexts/UserContext/index.jsx";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUser, selectIsAuthenticated } from "../../store/auth/slice.js";
 // import { useCart } from "../../contexts/CartContext";
@@ -7,6 +8,7 @@ import InputField from "../InputField";
 import { FaBell } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { BsBellFill, BsCartFill, BsPersonCircle } from "react-icons/bs";
+import { adminService } from "../../api/admin";
 import "./styles.css";
 import NavIcon from "../NavIcon/index.jsx";
 
@@ -15,7 +17,26 @@ const Navbar = () => {
   const user = useSelector(selectUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const cartCount = useSelector(selectCartCount);
+  const [notificationCount, setNotificationCount] = useState(0);
   // const { getCartCount } = useCart();
+
+  useEffect(() => {
+    if (user?.admin) {
+      fetchNotificationCount();
+    }
+  }, [user]);
+
+  const fetchNotificationCount = async () => {
+    try {
+      const response = await adminService.getNotifications();
+      const unreadCount = (response.data || []).filter(
+        (n) => !n.is_read
+      ).length;
+      setNotificationCount(unreadCount);
+    } catch (error) {
+      console.error("Error fetching notification count:", error);
+    }
+  };
 
   return (
     <nav className="navbar container">
@@ -72,7 +93,9 @@ const Navbar = () => {
           <>
             <Link to="/admin/notifications" className="nav-icon">
               <FaBell />
-              <span className="notification-badge">3</span>
+              {notificationCount > 0 && (
+                <span className="notification-badge">{notificationCount}</span>
+              )}
             </Link>
             <Link to="/admin/settings" className="nav-user">
               <img
