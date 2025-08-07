@@ -1,0 +1,30 @@
+.status-stamp {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  display: inline-block;
+  min-width: 70px;
+  text-align: center;
+}
+
+.status-stamp.pending {
+  background-color: #ffa500;
+}
+
+.status-stamp.paid {
+  background-color: #00cccc;
+}
+
+.status-stamp.packed {
+  background-color: #2196f3;
+}
+
+.status-stamp.shipped {
+  background-color: #4caf50;
+}
+
+.status-stamp.default {
+  background-color: #413131;
+}

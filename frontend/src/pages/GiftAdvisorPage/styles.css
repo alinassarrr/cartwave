@@ -1,0 +1,9 @@
+.gift-advisor-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}

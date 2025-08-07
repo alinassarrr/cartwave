@@ -1,0 +1,26 @@
+.order-total-box {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.order-total-box h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.total-row.total {
+  font-weight: bold;
+  font-size: 16px;
+  color: #111;
+  margin-top: 12px;
+}
