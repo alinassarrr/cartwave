@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\AIDescriptionController;
+use App\Http\Controllers\User\GiftAdvisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,8 @@ use App\Http\Controllers\Admin\CustomerController;
 // Public routes
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/products/generate-description', [AIDescriptionController::class, 'generateDescription']);
+Route::post('/gift-advisor', [GiftAdvisorController::class, 'recommend']);
 
 // Protected routes
 Route::middleware('auth:api')->group(function () {
