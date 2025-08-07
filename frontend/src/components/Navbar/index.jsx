@@ -78,10 +78,10 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/categories"
+                to="/gift-advisor"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Wave Deals
+                Gift Advisor
               </NavLink>
             </li>
           </>

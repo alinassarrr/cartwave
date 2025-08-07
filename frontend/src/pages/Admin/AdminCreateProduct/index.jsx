@@ -108,7 +108,10 @@ const AdminCreateProduct = () => {
       {error && <div className="error-message">{error}</div>}
 
       <div className="form-sections">
-        <ProductInformation onChange={setProductInfo} />
+        <ProductInformation 
+          onChange={setProductInfo} 
+          pricingInfo={pricingInfo}
+        />
         <PricingInventory onChange={setPricingInfo} />
       </div>
 
