@@ -15,10 +15,11 @@ const OrderFilters = ({
       <div className="filter-group">
         <label>Status</label>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="">All</option>
-          <option value="Pending">Pending</option>
-          <option value="Shipped">Shipped</option>
-          <option value="Delivered">Delivered</option>
+          <option value="">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="paid">Paid</option>
+          <option value="packed">Packed</option>
+          <option value="shipped">Shipped</option>
         </select>
       </div>
 

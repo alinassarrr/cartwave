@@ -1,5 +1,3 @@
-import Button from "../Button";
-import React, { useState } from "react";
 import OrderStatusStamp from "../OrderStatusStamp";
 import StatusDropdown from "../StatusDropdown";
 import "./styles.css";
@@ -16,20 +14,14 @@ const SummaryCard = ({
   total,
   paymentMethod,
   status,
+  id,
+  onStatusChange,
 }) => {
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [localStatus, setLocalStatus] = useState(status);
-
-  const handleStatusChange = async (newStatus) => {
-    setLocalStatus(newStatus);
-
-    // try {
-    //   const response = awai axios.put (`status api/${orderId}/status`, {status: newStatus,});
-    //   console.log("updated", response.data);
-    // } catch (error) {
-    //   console.error("failed", error);
-    // }
+  const handleStatusChange = async (orderId, newStatus) => {
+    if (onStatusChange) {
+      await onStatusChange(orderId, newStatus);
+    }
   };
 
   return (
@@ -40,7 +32,7 @@ const SummaryCard = ({
       <div className="summary-order">
         <strong
           className="clickable-order-id"
-          onClick={() => navigate(`/admin/orders/${orderId.replace("#", "")}`)}
+          onClick={() => navigate(`/admin/orders/${id}`)}
         >
           {orderId}
         </strong>
@@ -59,21 +51,14 @@ const SummaryCard = ({
         <span>{paymentMethod}</span>
       </div>
       <div className="summary-status">
-        <OrderStatusStamp status={localStatus} />
+        <OrderStatusStamp status={status} />
       </div>
       <div className="summary-actions">
-        <Button
-          text={localStatus}
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="action-button"
+        <StatusDropdown
+          currentStatus={status}
+          orderId={id}
+          onStatusChange={handleStatusChange}
         />
-        {isDropdownOpen && (
-          <StatusDropdown
-            currentStatus={localStatus}
-            onSelect={handleStatusChange}
-            onClose={() => setIsDropdownOpen(false)}
-          />
-        )}
       </div>
     </div>
   );

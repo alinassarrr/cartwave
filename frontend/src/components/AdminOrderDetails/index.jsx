@@ -4,6 +4,7 @@ import SectionHeader from "../SectionHeader";
 import AdminOrderItemsList from "../AdminOrderItemsList";
 import CustomerInfoBox from "../CustomerInfoBox";
 import ShippingAddressBox from "../ShippingAddressBox";
+import { adminService } from "../../api/admin";
 import OrderTotalBox from "../OrderTotalBox";
 import "./styles.css";
 
@@ -11,69 +12,106 @@ const AdminOrderDetails = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // axios.get(`/api/admin/orders/${orderId}`)
-    //   .then(res => {
-    //     setOrder(res.data);
-    //     setLoading(false);
-    //   })
-    //   .catch(err => {
-    //     console.error("Failed to fetch order details", err);
-    //     setLoading(false);
-    //   });
+    const fetchOrderDetails = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        console.log("Fetching order details for ID:", orderId);
+        console.log("Order ID type:", typeof orderId);
 
-    const timeout = setTimeout(() => {
-      setOrder({
-        id: orderId,
-        date: "Jan 26, 2025",
-        time: "10:30 AM",
-        items: [
-          {
-            name: "Wireless Bluetooth Headphones",
-            sku: "WH-001",
-            quantity: 1,
-            price: 199.99,
-            image: "",
-          },
-          {
-            name: "USB",
-            sku: "WH-001",
-            quantity: 1,
-            price: 29.99,
-            image: "",
-          },
-        ],
-        customer: {
-          name: "Salem Beyrouti",
-          email: "salem.beyrouti11@hotmail.com",
-          phone: "+961 71929497",
-          totalOrders: 12,
-        },
-        address: {
-          line1: "123 Main Street",
-          line2: "Apartment #8",
-          city: "Koura",
-          postal: "12223",
-          country: "Lebanon",
-        },
-        subtotal: 239.97,
-        shipping: 9.99,
-        tax: 19.2,
-      });
-      setLoading(false);
-    }, 500);
+        const response = await adminService.getOrderById(orderId);
+        console.log("Order details response:", response);
 
-    return () => clearTimeout(timeout);
+        const data = response.data || response;
+        console.log("Order details data:", data);
+        console.log("Data structure:", JSON.stringify(data, null, 2));
+
+        const transformedOrder = {
+          id: data.id || orderId,
+          orderNumber: data.order_number || `#${data.id}`,
+          date: new Date(data.created_at).toLocaleDateString(),
+          time: new Date(data.created_at).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          status: data.status,
+          items:
+            data.items?.map((item) => {
+              console.log("Product data:", item.product);
+              console.log("Image URL:", item.product?.image_url);
+
+              // Handle different image URL formats
+              let imageUrl = "";
+              if (item.product?.image_url) {
+                // If it's already a full URL, use it
+                if (item.product.image_url.startsWith("http")) {
+                  imageUrl = item.product.image_url;
+                } else {
+                  // If it's a relative path, construct the full URL
+                  imageUrl = `http://localhost:8080/storage/${item.product.image_url}`;
+                }
+              }
+
+              return {
+                name: item.product?.name || "Unknown Product",
+                sku: item.product?.sku || "N/A",
+                quantity: item.quantity,
+                price: item.price,
+                image: imageUrl,
+              };
+            }) || [],
+          customer: {
+            name:
+              `${data.user?.first_name || ""} ${
+                data.user?.last_name || ""
+              }`.trim() || "Unknown Customer",
+            email: data.user?.email || "No email",
+            phone: "No phone", // Phone field doesn't exist in users table
+            totalOrders: data.user?.orders_count || 0,
+          },
+          address: {
+            line1: "No address provided",
+            line2: "",
+            city: "",
+            postal: "",
+            country: "",
+          },
+
+          subtotal: data.total || 0,
+          shipping: data.shipping_price || 0,
+          tax: 0, // We don't have tax field in our schema
+          total: data.total || 0,
+        };
+
+        setOrder(transformedOrder);
+      } catch (err) {
+        console.error("Error fetching order details:", err);
+        setError(
+          `Failed to load order details: ${err.message || "Unknown error"}`
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (orderId) {
+      fetchOrderDetails();
+    }
   }, [orderId]);
 
-  if (loading || !order) return <div>Loading order...</div>;
+  if (loading) return <div className="loading">Loading order details...</div>;
+
+  if (error) return <div className="error">{error}</div>;
+
+  if (!order) return <div className="error">Order not found</div>;
 
   return (
     <div className="order-details">
       <SectionHeader
-        title={`Order #${order.id}`}
-        subtitle={`Placed on ${order.date} at ${order.time}`}
+        title={`Order ${order.orderNumber || `#${order.id}`}`}
+        subtitle={`Placed on ${order.date} at ${order.time} • Status: ${order.status}`}
       />
       <div className="order-details-content">
         <div className="order-details-left">
@@ -86,6 +124,7 @@ const AdminOrderDetails = () => {
             subtotal={order.subtotal}
             shipping={order.shipping}
             tax={order.tax}
+            total={order.total}
           />
         </div>
       </div>

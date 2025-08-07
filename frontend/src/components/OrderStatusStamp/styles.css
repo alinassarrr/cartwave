@@ -9,28 +9,20 @@
   text-align: center;
 }
 
-.status-stamp.Pending {
-  background-color: #f0ad4e;
+.status-stamp.pending {
+  background-color: #ffa500;
 }
 
-.status-stamp.Paid {
-  background-color: #5cb85c;
+.status-stamp.paid {
+  background-color: #00cccc;
 }
 
-.status-stamp.Shipped {
-  background-color: #6e8e98;
+.status-stamp.packed {
+  background-color: #2196f3;
 }
 
-.status-stamp.Processing {
-  background-color: #28a07e;
-}
-
-.status-stamp.Delivered {
-  background-color: #036701;
-}
-
-.status-stamp.Cancelled {
-  background-color: #aa0505;
+.status-stamp.shipped {
+  background-color: #4caf50;
 }
 
 .status-stamp.default {
