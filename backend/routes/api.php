@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\AIDescriptionController;
+use App\Http\Controllers\User\GiftAdvisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/profile', [ProfileController::class, 'show']);
         Route::put('/profile', [ProfileController::class, 'update']);
         Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar']);
+
+        //Gift Adviosr
+        Route::Post('/gift-advisor/recommend', [GiftAdvisorController::class, 'recommend']);
     });
 
     // Admin routes
@@ -83,7 +88,9 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/products/{id}', [AdminProductController::class, 'show']);
         Route::put('/products/{id}', [AdminProductController::class, 'update']);
         Route::delete('/products/{id}', [AdminProductController::class, 'destroy']);
-        Route::post('/products/bulk-delete', [AdminProductController::class, 'bulkDelete']);      
+        Route::post('/products/bulk-delete', [AdminProductController::class, 'bulkDelete']); 
+        Route::post('/products/ai-description', [AIDescriptionController::class, 'generateDescription']);     
+
 
         // Orders
         Route::get('/orders', [AdminOrderController::class, 'index']);
