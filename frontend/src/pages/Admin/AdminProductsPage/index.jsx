@@ -5,7 +5,7 @@ const AdminProductsPage = () => {
   return (
     <>
       <AdminProductOverview />
-      <AdminProductTable />;
+      <AdminProductTable />
     </>
   );
 };
