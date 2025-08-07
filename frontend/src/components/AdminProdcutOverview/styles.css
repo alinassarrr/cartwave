@@ -34,3 +34,21 @@
 .product-summary-icon {
   font-size: 24px;
 }
+
+.admin-product-overview button {
+  background: #00cccc;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.admin-product-overview button:hover {
+  background: #00b3b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 204, 204, 0.3);
+}

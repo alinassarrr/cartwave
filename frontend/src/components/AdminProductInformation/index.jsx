@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./styles.css";
 
-const ProductInformation = ({ onChange }) => {
+const ProductInformation = ({ onChange, initialData = {} }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    sku: "",
-    description: "",
-    category: "",
+    name: initialData.name || "",
+    sku: initialData.sku || "",
+    description: initialData.description || "",
+    category: initialData.category || "",
+    category_id: initialData.category_id || "",
     status: "Active",
   });
 
@@ -57,15 +58,24 @@ const ProductInformation = ({ onChange }) => {
         <div className="input-group">
           <label>Category</label>
           <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
+            name="category_id"
+            value={formData.category_id}
+            onChange={(e) => {
+              const { value } = e.target;
+              const updated = {
+                ...formData,
+                category_id: value,
+                category: e.target.options[e.target.selectedIndex]?.text || "",
+              };
+              setFormData(updated);
+              onChange?.(updated);
+            }}
           >
             <option value="">Select Category</option>
-            <option value="Clothing">Clothing</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Books">Books</option>
-            <option value="Accessories">Accessories</option>
+            <option value="1">Clothing</option>
+            <option value="2">Electronics</option>
+            <option value="3">Books</option>
+            <option value="4">Accessories</option>
           </select>
         </div>
 

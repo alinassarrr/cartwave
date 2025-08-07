@@ -1,9 +1,24 @@
+.admin-edit-product {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .edit-product-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 600px;
+  gap: 20px;
   margin-top: 20px;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .edit-product-form label {
@@ -11,25 +26,90 @@
   flex-direction: column;
   font-weight: 500;
   font-size: 14px;
+  color: #495057;
 }
 
 .edit-product-form input,
 .edit-product-form textarea,
 .edit-product-form select {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border: 1px solid #dee2e6;
   border-radius: 6px;
   font-size: 14px;
-  margin-top: 6px;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.edit-product-form input:focus,
+.edit-product-form textarea:focus,
+.edit-product-form select:focus {
+  outline: none;
+  border-color: #00cccc;
+  box-shadow: 0 0 0 3px rgba(0, 204, 204, 0.1);
+}
+
+.edit-product-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .save-btn {
-  padding: 10px 16px;
-  background-color: #007bff;
+  padding: 12px 24px;
+  background-color: #00cccc;
   color: white;
   border: none;
-  font-weight: bold;
-  border-radius: 4px;
-  width: fit-content;
-  margin-top: 20px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #00b3b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 204, 204, 0.3);
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  padding: 12px 24px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+.loading {
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
 }

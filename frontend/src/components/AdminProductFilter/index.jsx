@@ -25,9 +25,9 @@ const AdminProductFilters = ({
         onChange={(e) => setSelectedStock(e.target.value)}
       >
         <option value="">All Stock Status</option>
-        <option value="Active">Active</option>
-        <option value="Low">Low</option>
-        <option value="Out of Stock">Out of Stock</option>
+        <option value="in_stock">In Stock</option>
+        <option value="low_stock">Low Stock</option>
+        <option value="out_of_stock">Out of Stock</option>
       </select>
 
       <input
